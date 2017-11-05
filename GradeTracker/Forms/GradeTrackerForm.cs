@@ -28,6 +28,8 @@ namespace GradeTracker.Forms
 
 		public GradeTrackerForm()
 		{
+			MinimumSize = new Size(600, 400);
+
 			InitializeMenuStrip();
 			InitializeSplashTab();
 			InitializeCoursesTab();

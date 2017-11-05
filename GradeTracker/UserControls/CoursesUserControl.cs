@@ -55,8 +55,10 @@ namespace GradeTracker.UserControls
 		private void CreateCoursesGrid()
 		{
 			CoursesGrid = new DataGridView() {
+				ReadOnly =				true,
+				AllowUserToAddRows =	false,
 				Location =	new Point(AddNewCourseButton.Left, AddNewCourseButton.Height + AddNewCourseButton.Top + 10),
-				ReadOnly =	true
+				Anchor =	AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right
 			};
 
 			CoursesGrid.Columns.Add(new DataGridViewTextBoxColumn(){ HeaderText = "Name" });
