@@ -165,6 +165,7 @@ namespace GradeTracker.Forms
 
 		private void ShowStudentsTab (object sender, EventArgs e)
 		{
+			studentsControl.Refresh();
 			gradeTrackerTabs.SelectedIndex = 2;
 		}
 	}

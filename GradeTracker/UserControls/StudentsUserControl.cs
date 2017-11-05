@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using GradeTracker.Data;
 
 namespace GradeTracker.UserControls
 {
@@ -8,6 +10,7 @@ namespace GradeTracker.UserControls
 	{
 		private Button AddNewStudentButton;
 		private Button HomeButton;
+		private DataGridView StudentsGrid;
 
 		public EventHandler HomeButtonClicked;
 
@@ -15,6 +18,7 @@ namespace GradeTracker.UserControls
 		{
 			CreateAddNewStudentButton();
 			CreateHomeButton();
+			CreateStudentsGrid();
 		}
 
 		private void CreateAddNewStudentButton()
@@ -46,6 +50,38 @@ namespace GradeTracker.UserControls
 		private void HomeButton_Click (object sender, EventArgs e)
 		{
 			HomeButtonClicked?.Invoke(this, e);
+		}
+
+		private void CreateStudentsGrid()
+		{
+			StudentsGrid = new DataGridView() {
+				Location =	new Point(AddNewStudentButton.Left, AddNewStudentButton.Height + AddNewStudentButton.Top + 10),
+				ReadOnly =	true
+			};
+
+			StudentsGrid.Columns.Add(new DataGridViewTextBoxColumn(){ HeaderText = "First Name" });
+			StudentsGrid.Columns.Add(new DataGridViewTextBoxColumn(){ HeaderText = "Last Name" });
+
+			Controls.Add(StudentsGrid);
+		}
+
+		public override void Refresh()
+		{
+			base.Refresh();
+
+			StudentsGrid.Rows.Clear();
+
+			List<Student> students = Student.GetStudents();
+
+			foreach(Student student in students)
+			{
+				DataGridViewRow row = new DataGridViewRow();
+
+				row.Cells.Add(new DataGridViewTextBoxCell(){ Value = student.FirstName });
+				row.Cells.Add(new DataGridViewTextBoxCell(){ Value = student.LastName });
+
+				StudentsGrid.Rows.Add(row);
+			}
 		}
 	}
 }
