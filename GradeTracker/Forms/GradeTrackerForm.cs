@@ -7,6 +7,15 @@ namespace GradeTracker.Forms
 {
 	public class GradeTrackerForm : Form
 	{
+		#region Class variables and properties
+		private MenuStrip menuStrip;
+		private ToolStripMenuItem fileMenuItem;
+		private ToolStripMenuItem exitMenuItem;
+		private ToolStripMenuItem windowMenuItem;
+		private ToolStripMenuItem splashMenuItem;
+		private ToolStripMenuItem coursesMenuItem;
+		private ToolStripMenuItem studentsMenuItem;
+
 		private TabControl gradeTrackerTabs;
 		private TabPage splashTab;
 		private TabPage coursesTab;
@@ -15,13 +24,66 @@ namespace GradeTracker.Forms
 		private SplashUserControl splashControl;
 		private CoursesUserControl coursesControl;
 		private StudentsUserControl studentsControl;
+		#endregion
 
 		public GradeTrackerForm()
 		{
+			InitializeMenuStrip();
 			InitializeSplashTab();
 			InitializeCoursesTab();
 			InitializeStudentsTab();
 			InitializeGradeTrackersTabs();
+		}
+
+		private void InitializeMenuStrip()
+		{
+			menuStrip = new MenuStrip();
+
+			#region Initialize file drop down
+			fileMenuItem = new ToolStripMenuItem() {
+				Text = "File"
+			};
+
+			exitMenuItem = new ToolStripMenuItem() {
+				Text = "Exit"
+			};
+
+			exitMenuItem.Click += ExitProgram;
+
+			menuStrip.Items.Add(fileMenuItem);
+
+			fileMenuItem.DropDownItems.Add(exitMenuItem);
+			#endregion
+
+			#region Initialize window drop down
+			windowMenuItem = new ToolStripMenuItem() {
+				Text = "Window"
+			};
+
+			splashMenuItem = new ToolStripMenuItem() {
+				Text = "Home"
+			};
+
+			coursesMenuItem = new ToolStripMenuItem() {
+				Text = "Courses"
+			};
+
+			studentsMenuItem = new ToolStripMenuItem() {
+				Text = "Students"
+			};
+
+			splashMenuItem.Click += ShowSplashTab;
+			coursesMenuItem.Click += ShowCoursesTab;
+			studentsMenuItem.Click += ShowStudentsTab;
+
+			windowMenuItem.DropDownItems.Add(splashMenuItem);
+			windowMenuItem.DropDownItems.Add(coursesMenuItem);
+			windowMenuItem.DropDownItems.Add(studentsMenuItem);
+
+			menuStrip.Items.Add(windowMenuItem);
+			#endregion
+
+			Controls.Add(menuStrip);
 		}
 
 		private void InitializeSplashTab()
@@ -35,20 +97,10 @@ namespace GradeTracker.Forms
 				Dock = DockStyle.Fill
 			};
 
-			splashControl.CoursesButtonClicked += Splash_CoursesButtonClicked;
-			splashControl.StudentsButtonClicked += Splash_StudentsButtonClicked;
+			splashControl.CoursesButtonClicked += ShowCoursesTab;
+			splashControl.StudentsButtonClicked += ShowStudentsTab;
 
 			splashTab.Controls.Add(splashControl);
-		}
-
-		private void Splash_CoursesButtonClicked (object sender, EventArgs e)
-		{
-			gradeTrackerTabs.SelectedIndex = 1;
-		}
-
-		private void Splash_StudentsButtonClicked (object sender, EventArgs e)
-		{
-			gradeTrackerTabs.SelectedIndex = 2;
 		}
 
 		private void InitializeCoursesTab()
@@ -61,6 +113,8 @@ namespace GradeTracker.Forms
 			coursesControl = new CoursesUserControl() {
 				Dock = DockStyle.Fill
 			};
+
+			coursesControl.HomeButtonClicked += ShowSplashTab;
 
 			coursesTab.Controls.Add(coursesControl);
 		}
@@ -76,6 +130,8 @@ namespace GradeTracker.Forms
 				Dock = DockStyle.Fill
 			};
 
+			studentsControl.HomeButtonClicked += ShowSplashTab;
+
 			studentsTab.Controls.Add(studentsControl);
 		}
 
@@ -90,6 +146,26 @@ namespace GradeTracker.Forms
 			gradeTrackerTabs.TabPages.Add(studentsTab);
 
 			Controls.Add(gradeTrackerTabs);
+		}
+
+		private void ExitProgram (object sender, EventArgs e)
+		{
+			Close();
+		}
+
+		private void ShowSplashTab (object sender, EventArgs e)
+		{
+			gradeTrackerTabs.SelectedIndex = 0;
+		}
+
+		private void ShowCoursesTab (object sender, EventArgs e)
+		{
+			gradeTrackerTabs.SelectedIndex = 1;
+		}
+
+		private void ShowStudentsTab (object sender, EventArgs e)
+		{
+			gradeTrackerTabs.SelectedIndex = 2;
 		}
 	}
 }
