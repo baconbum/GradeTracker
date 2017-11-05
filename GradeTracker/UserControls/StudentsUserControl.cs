@@ -43,7 +43,7 @@ namespace GradeTracker.UserControls
 			Controls.Add(HomeButton);
 		}
 
-		void HomeButton_Click (object sender, EventArgs e)
+		private void HomeButton_Click (object sender, EventArgs e)
 		{
 			HomeButtonClicked?.Invoke(this, e);
 		}
