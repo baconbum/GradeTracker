@@ -26,9 +26,7 @@ namespace GradeTracker.Data
 		{
 			List<Student> students = new List<Student>();
 
-			const string connectionString = "URI=file:../../GradeTracker.db";
-
-			SqliteConnection conn = new SqliteConnection(connectionString);
+			SqliteConnection conn = DatabaseConnection.GetConnection();
 			conn.Open();
 			SqliteCommand command = conn.CreateCommand();
 

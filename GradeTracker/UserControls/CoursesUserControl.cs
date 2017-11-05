@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using GradeTracker.Data;
 
 namespace GradeTracker.UserControls
 {
@@ -8,6 +10,7 @@ namespace GradeTracker.UserControls
 	{
 		private Button AddNewCourseButton;
 		private Button HomeButton;
+		private DataGridView CoursesGrid;
 
 		public EventHandler HomeButtonClicked;
 
@@ -15,6 +18,7 @@ namespace GradeTracker.UserControls
 		{
 			CreateAddNewCourseButton();
 			CreateHomeButton();
+			CreateCoursesGrid();
 		}
 
 		private void CreateAddNewCourseButton()
@@ -46,6 +50,36 @@ namespace GradeTracker.UserControls
 		private void HomeButton_Click (object sender, EventArgs e)
 		{
 			HomeButtonClicked?.Invoke(this, e);
+		}
+
+		private void CreateCoursesGrid()
+		{
+			CoursesGrid = new DataGridView() {
+				Location =	new Point(AddNewCourseButton.Left, AddNewCourseButton.Height + AddNewCourseButton.Top + 10),
+				ReadOnly =	true
+			};
+
+			CoursesGrid.Columns.Add(new DataGridViewTextBoxColumn(){ HeaderText = "Name" });
+
+			Controls.Add(CoursesGrid);
+		}
+
+		public override void Refresh()
+		{
+			base.Refresh();
+
+			CoursesGrid.Rows.Clear();
+
+			List<Course> courses = Course.GetCourses();
+
+			foreach(Course course in courses)
+			{
+				DataGridViewRow row = new DataGridViewRow();
+
+				row.Cells.Add(new DataGridViewTextBoxCell(){ Value = course.Name });
+
+				CoursesGrid.Rows.Add(row);
+			}
 		}
 	}
 }
