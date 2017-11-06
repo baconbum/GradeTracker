@@ -6,6 +6,11 @@ namespace GradeTracker.Data
 {
 	public class Student
 	{
+		public int Id {
+			get;
+			set;
+		}
+
 		public string FirstName {
 			get;
 			set;
@@ -16,10 +21,11 @@ namespace GradeTracker.Data
 			set;
 		}
 
-		public Student(string firstName, string lastName)
+		public Student(int id, string firstName, string lastName)
 		{
-			FirstName = firstName;
-			LastName = lastName;
+			Id =		id;
+			FirstName =	firstName;
+			LastName =	lastName;
 		}
 
 		public static List<Student> GetStudents()
@@ -31,7 +37,7 @@ namespace GradeTracker.Data
 			SqliteCommand command = conn.CreateCommand();
 
 			const string sql =
-				"SELECT FirstName, LastName " +
+				"SELECT ID, FirstName, LastName " +
 				"FROM Students";
 			
 			command.CommandText = sql;
@@ -39,10 +45,11 @@ namespace GradeTracker.Data
 
 			while(reader.Read())
 			{
-				string firstName = reader.GetString(0);
-				string lastName = reader.GetString(1);
+				int id =			reader.GetInt32(0);
+				string firstName =	reader.GetString(1);
+				string lastName =	reader.GetString(2);
 
-				students.Add(new Student(firstName, lastName));
+				students.Add(new Student(id, firstName, lastName));
 			}
 
 			// clean up
