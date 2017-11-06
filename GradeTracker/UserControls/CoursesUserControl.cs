@@ -12,6 +12,14 @@ namespace GradeTracker.UserControls
 		private Button HomeButton;
 		private DataGridView CoursesGrid;
 
+		private enum CoursesGridColumn {
+			Enrollment = 1,
+			Tasks = 2,
+			Grades = 3,
+			Edit = 4,
+			Delete = 5
+		};
+
 		public EventHandler HomeButtonClicked;
 
 		public CoursesUserControl()
@@ -63,6 +71,38 @@ namespace GradeTracker.UserControls
 
 			CoursesGrid.Columns.Add(new DataGridViewTextBoxColumn(){ HeaderText = "Name" });
 
+			CoursesGrid.Columns.Add(new DataGridViewButtonColumn(){
+				HeaderText = "View Enrollment",
+				Text = "View",
+				UseColumnTextForButtonValue = true
+			});
+
+			CoursesGrid.Columns.Add(new DataGridViewButtonColumn(){
+				HeaderText = "View Tasks",
+				Text = "Tasks",
+				UseColumnTextForButtonValue = true
+			});
+
+			CoursesGrid.Columns.Add(new DataGridViewButtonColumn(){
+				HeaderText = "Current Grades",
+				Text = "Grades",
+				UseColumnTextForButtonValue = true
+			});
+
+			CoursesGrid.Columns.Add(new DataGridViewButtonColumn(){
+				HeaderText = "Edit",
+				Text = "Edit",
+				UseColumnTextForButtonValue = true
+			});
+
+			CoursesGrid.Columns.Add(new DataGridViewButtonColumn(){
+				HeaderText = "Delete",
+				Text = "Delete",
+				UseColumnTextForButtonValue = true
+			});
+
+			CoursesGrid.CellClick += CoursesGrid_Clicked;
+
 			Controls.Add(CoursesGrid);
 		}
 
@@ -76,11 +116,36 @@ namespace GradeTracker.UserControls
 
 			foreach(Course course in courses)
 			{
-				DataGridViewRow row = new DataGridViewRow();
+				DataGridViewRow row = new DataGridViewRow(){ Tag = course };
 
 				row.Cells.Add(new DataGridViewTextBoxCell(){ Value = course.Name });
 
 				CoursesGrid.Rows.Add(row);
+			}
+		}
+
+		private void CoursesGrid_Clicked(object sender, DataGridViewCellEventArgs e)
+		{
+			DataGridViewRow row = CoursesGrid.Rows[e.RowIndex];
+			Course course = (Course)row.Tag;
+
+			switch (e.ColumnIndex)
+			{
+				case (int)CoursesGridColumn.Enrollment:
+					MessageBox.Show(String.Format("View enrollment clicked for course \"{0}\"", course.Name));
+					break;
+				case (int)CoursesGridColumn.Tasks:
+					MessageBox.Show(String.Format("View tasks clicked for course \"{0}\"", course.Name));
+					break;
+				case (int)CoursesGridColumn.Grades:
+					MessageBox.Show(String.Format("View grades clicked for course \"{0}\"", course.Name));
+					break;
+				case (int)CoursesGridColumn.Edit:
+					MessageBox.Show(String.Format("Edit clicked for course \"{0}\"", course.Name));
+					break;
+				case (int)CoursesGridColumn.Delete:
+					MessageBox.Show(String.Format("Delete clicked for course \"{0}\"", course.Name));
+					break;
 			}
 		}
 	}
