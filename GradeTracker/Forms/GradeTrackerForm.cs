@@ -28,6 +28,7 @@ namespace GradeTracker.Forms
 
 		public GradeTrackerForm()
 		{
+			Text = "Grade Tracker";
 			MinimumSize = new Size(600, 400);
 
 			InitializeMenuStrip();
