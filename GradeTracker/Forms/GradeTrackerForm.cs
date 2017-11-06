@@ -22,8 +22,8 @@ namespace GradeTracker.Forms
 		private TabPage studentsTab;
 
 		private SplashUserControl splashControl;
-		private CoursesUserControl coursesControl;
-		private StudentsUserControl studentsControl;
+		private CourseDashboardUserControl courseDashboardControl;
+		private StudentDashboardUserControl studentDashboardControl;
 		#endregion
 
 		public GradeTrackerForm()
@@ -112,13 +112,13 @@ namespace GradeTracker.Forms
 				Dock = DockStyle.Fill
 			};
 
-			coursesControl = new CoursesUserControl() {
+			courseDashboardControl = new CourseDashboardUserControl() {
 				Dock = DockStyle.Fill
 			};
 
-			coursesControl.HomeButtonClicked += ShowSplashTab;
+			courseDashboardControl.HomeButtonClicked += ShowSplashTab;
 
-			coursesTab.Controls.Add(coursesControl);
+			coursesTab.Controls.Add(courseDashboardControl);
 		}
 
 		private void InitializeStudentsTab()
@@ -128,13 +128,13 @@ namespace GradeTracker.Forms
 				Dock = DockStyle.Fill
 			};
 
-			studentsControl = new StudentsUserControl() {
+			studentDashboardControl = new StudentDashboardUserControl() {
 				Dock = DockStyle.Fill
 			};
 
-			studentsControl.HomeButtonClicked += ShowSplashTab;
+			studentDashboardControl.HomeButtonClicked += ShowSplashTab;
 
-			studentsTab.Controls.Add(studentsControl);
+			studentsTab.Controls.Add(studentDashboardControl);
 		}
 
 		private void InitializeGradeTrackersTabs()
@@ -162,13 +162,13 @@ namespace GradeTracker.Forms
 
 		private void ShowCoursesTab (object sender, EventArgs e)
 		{
-			coursesControl.Refresh();
+			courseDashboardControl.Refresh();
 			gradeTrackerTabs.SelectedIndex = 1;
 		}
 
 		private void ShowStudentsTab (object sender, EventArgs e)
 		{
-			studentsControl.Refresh();
+			studentDashboardControl.Refresh();
 			gradeTrackerTabs.SelectedIndex = 2;
 		}
 	}

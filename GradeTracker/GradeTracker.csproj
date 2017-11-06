@@ -38,12 +38,12 @@
   <ItemGroup>
     <Compile Include="GradeTracker.cs" />
     <Compile Include="Forms\GradeTrackerForm.cs" />
-    <Compile Include="UserControls\StudentsUserControl.cs" />
-    <Compile Include="UserControls\CoursesUserControl.cs" />
     <Compile Include="UserControls\SplashUserControl.cs" />
     <Compile Include="Data\Student.cs" />
     <Compile Include="Data\Course.cs" />
     <Compile Include="Data\DatabaseConnection.cs" />
+    <Compile Include="UserControls\StudentDashboardUserControl.cs" />
+    <Compile Include="UserControls\CourseDashboardUserControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />

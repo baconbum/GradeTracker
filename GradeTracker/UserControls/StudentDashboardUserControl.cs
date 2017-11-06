@@ -6,7 +6,7 @@ using GradeTracker.Data;
 
 namespace GradeTracker.UserControls
 {
-	public class StudentsUserControl : UserControl
+	public class StudentDashboardUserControl : UserControl
 	{
 		private Button AddNewStudentButton;
 		private Button HomeButton;
@@ -20,7 +20,7 @@ namespace GradeTracker.UserControls
 
 		public EventHandler HomeButtonClicked;
 
-		public StudentsUserControl()
+		public StudentDashboardUserControl()
 		{
 			CreateAddNewStudentButton();
 			CreateHomeButton();
