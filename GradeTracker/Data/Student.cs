@@ -83,12 +83,12 @@ namespace GradeTracker.Data
 			}
 		}
 
-		public bool DeleteFromDatabase()
+		public bool Delete()
 		{
-			return DeleteStudentFromDatabase(Id);
+			return Delete(Id);
 		}
 
-		public static bool DeleteStudentFromDatabase(int id)
+		public static bool Delete(int studentId)
 		{
 			SqliteConnection conn = DatabaseConnection.GetConnection();
 			conn.Open();
@@ -98,7 +98,7 @@ namespace GradeTracker.Data
 				"DELETE FROM Students " +
 				"WHERE ID = {0}";
 
-			command.CommandText = String.Format(studentDeleteFormat, id);
+			command.CommandText = String.Format(studentDeleteFormat, studentId);
 
 			try {
 				command.ExecuteNonQuery();

@@ -133,7 +133,7 @@ namespace GradeTracker.UserControls
 						"Delete Student", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation))
 					{
 						case DialogResult.OK:
-							student.DeleteFromDatabase();
+							student.Delete();
 							break;
 						default:
 							break;
