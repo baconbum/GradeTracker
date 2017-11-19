@@ -112,31 +112,34 @@ namespace GradeTracker.Forms
 
 		private void SubmitButtonClicked(object sender, EventArgs e)
 		{
+			string firstName =	firstNameTextBox.Text;
+			string lastName =	lastNameTextBox.Text;
+
 			if (student == null)
 			{
-				if (Student.AddStudentToDatabase(firstNameTextBox.Text, lastNameTextBox.Text))
+				if (Student.AddStudentToDatabase(firstName, lastName))
 				{
-					MessageBox.Show(String.Format("Added {0}, {1}", firstNameTextBox.Text, lastNameTextBox.Text),
+					MessageBox.Show(String.Format("Added {0}, {1}", firstName, lastName),
 						"Student Added", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 					ResetForm();
 				}
 				else
 				{
-					MessageBox.Show(String.Format("Error adding student {0}, {1}", lastNameTextBox.Text, firstNameTextBox.Text),
+					MessageBox.Show(String.Format("Error adding student {0}, {1}", lastName, firstName),
 						"Error Adding Student", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			}
 			else
 			{
-				if (student.Edit(firstNameTextBox.Text, lastNameTextBox.Text))
+				if (student.Edit(firstName, lastName))
 				{
-					MessageBox.Show(String.Format("Updated {0}, {1}", firstNameTextBox.Text, lastNameTextBox.Text),
+					MessageBox.Show(String.Format("Updated {0}, {1}", firstName, lastName),
 						"Student Updated", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 					ResetForm();
 				}
 				else
 				{
-					MessageBox.Show(String.Format("Error updating student {0}, {1}", lastNameTextBox.Text, firstNameTextBox.Text),
+					MessageBox.Show(String.Format("Error updating student {0}, {1}", lastName, firstName),
 						"Error Updating Student", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			}
