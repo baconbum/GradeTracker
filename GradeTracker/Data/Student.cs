@@ -111,5 +111,36 @@ namespace GradeTracker.Data
 				conn.Close();
 			}
 		}
+
+		public bool Edit(string firstName, string lastName)
+		{
+			return Edit(Id, firstName, lastName);
+		}
+
+		public static bool Edit(int studentId, string firstName, string lastName)
+		{
+			SqliteConnection conn = DatabaseConnection.GetConnection();
+			conn.Open();
+			SqliteCommand command = conn.CreateCommand();
+
+			const string studentUpdateFormat =
+				"UPDATE Students " +
+				"SET FirstName = '{1}', " +
+				"LastName = '{2}' " +
+				"WHERE ID = {0}";
+
+			command.CommandText = String.Format(studentUpdateFormat, studentId, firstName, lastName);
+
+			try {
+				command.ExecuteNonQuery();
+				return true;
+			}
+			catch (Exception) {
+				return false;
+			}
+			finally {
+				conn.Close();
+			}
+		}
 	}
 }

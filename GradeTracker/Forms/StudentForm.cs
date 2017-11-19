@@ -126,7 +126,15 @@ namespace GradeTracker.Forms
 			}
 			else
 			{
-				MessageBox.Show(String.Format("Editing student {0}, {1}", student.LastName, student.FirstName));
+				if (student.Edit(firstNameTextBox.Text, lastNameTextBox.Text))
+				{
+					MessageBox.Show(String.Format("Updated {0}, {1}", firstNameTextBox.Text, lastNameTextBox.Text));
+					ResetForm();
+				}
+				else
+				{
+					MessageBox.Show("Error updating student");
+				}
 			}
 		}
 	}
