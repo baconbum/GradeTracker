@@ -82,5 +82,34 @@ namespace GradeTracker.Data
 				conn.Close();
 			}
 		}
+
+		public bool DeleteFromDatabase()
+		{
+			return DeleteStudentFromDatabase(Id);
+		}
+
+		public static bool DeleteStudentFromDatabase(int id)
+		{
+			SqliteConnection conn = DatabaseConnection.GetConnection();
+			conn.Open();
+			SqliteCommand command = conn.CreateCommand();
+
+			const string studentDeleteFormat =
+				"DELETE FROM Students " +
+				"WHERE ID = {0}";
+
+			command.CommandText = String.Format(studentDeleteFormat, id);
+
+			try {
+				command.ExecuteNonQuery();
+				return true;
+			}
+			catch (Exception) {
+				return false;
+			}
+			finally {
+				conn.Close();
+			}
+		}
 	}
 }
