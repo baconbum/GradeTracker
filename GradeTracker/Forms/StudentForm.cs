@@ -104,11 +104,25 @@ namespace GradeTracker.Forms
 			flowLayoutPanel.Controls.Add(buttonsPanel);
 		}
 
+		private void ResetForm()
+		{
+			firstNameTextBox.Text = String.Empty;
+			lastNameTextBox.Text = String.Empty;
+		}
+
 		private void SubmitButtonClicked(object sender, EventArgs e)
 		{
 			if (student == null)
 			{
-				MessageBox.Show("Adding student");
+				if (Student.AddStudentToDatabase(firstNameTextBox.Text, lastNameTextBox.Text))
+				{
+					MessageBox.Show(String.Format("Added {0}, {1}", firstNameTextBox.Text, lastNameTextBox.Text));
+					ResetForm();
+				}
+				else
+				{
+					MessageBox.Show("Error adding student");
+				}
 			}
 			else
 			{

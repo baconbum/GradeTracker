@@ -58,6 +58,29 @@ namespace GradeTracker.Data
 
 			return students;
 		}
+
+		public static bool AddStudentToDatabase(string firstName, string lastName)
+		{
+			SqliteConnection conn = DatabaseConnection.GetConnection();
+			conn.Open();
+			SqliteCommand command = conn.CreateCommand();
+
+			const string studentInsertFormat =
+				"INSERT INTO Students(FirstName, LastName) " +
+				"VALUES ('{0}', '{1}')";
+
+			command.CommandText = String.Format(studentInsertFormat, firstName, lastName);
+
+			try {
+				command.ExecuteNonQuery();
+				return true;
+			}
+			catch (Exception) {
+				return false;
+			}
+			finally {
+				conn.Close();
+			}
+		}
 	}
 }
-
