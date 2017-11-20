@@ -110,8 +110,29 @@ namespace GradeTracker.Forms
 			lastNameTextBox.Text = String.Empty;
 		}
 
+		private bool ValidateForm()
+		{
+			if (String.IsNullOrWhiteSpace(firstNameTextBox.Text))
+			{
+				MessageBox.Show("First Name cannot be empty.", "Invalid Student",
+					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return false;
+			}
+
+			if (String.IsNullOrWhiteSpace(lastNameTextBox.Text))
+			{
+				MessageBox.Show("Last Name cannot be empty.", "Invalid Student",
+					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return false;
+			}
+
+			return true;
+		}
+
 		private void SubmitButtonClicked(object sender, EventArgs e)
 		{
+			if (!ValidateForm()) return;
+
 			string firstName =	firstNameTextBox.Text;
 			string lastName =	lastNameTextBox.Text;
 

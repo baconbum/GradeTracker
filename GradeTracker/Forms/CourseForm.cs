@@ -130,8 +130,29 @@ namespace GradeTracker.Forms
 			endDatePicker.Value =	DateTime.Now;
 		}
 
+		private bool ValidateForm()
+		{
+			if (String.IsNullOrWhiteSpace(nameTextBox.Text))
+			{
+				MessageBox.Show("Name cannot be empty.", "Invalid Course",
+					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return false;
+			}
+
+			if (startDatePicker.Value > endDatePicker.Value)
+			{
+				MessageBox.Show("Start Date cannot be greater than End Date.", "Invalid Course",
+					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return false;
+			}
+
+			return true;
+		}
+
 		private void SubmitButtonClicked(object sender, EventArgs e)
 		{
+			if (!ValidateForm()) return;
+
 			string name =			nameTextBox.Text;
 			DateTime startDate =	startDatePicker.Value;
 			DateTime endDate =		endDatePicker.Value;
