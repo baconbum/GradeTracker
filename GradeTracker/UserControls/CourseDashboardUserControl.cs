@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using GradeTracker.Data;
+using GradeTracker.Forms;
 
 namespace GradeTracker.UserControls
 {
@@ -42,7 +43,8 @@ namespace GradeTracker.UserControls
 
 		private void AddNewCourseButton_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show("Add New Course Button Clicked");
+			CourseForm courseForm = new CourseForm();
+			courseForm.Show();
 		}
 
 		private void CreateHomeButton()
@@ -141,7 +143,8 @@ namespace GradeTracker.UserControls
 					MessageBox.Show(String.Format("View grades clicked for course \"{0}\"", course.Name));
 					break;
 				case (int)CoursesGridColumn.Edit:
-					MessageBox.Show(String.Format("Edit clicked for course \"{0}\"", course.Name));
+					CourseForm courseForm = new CourseForm(course);
+					courseForm.Show();
 					break;
 				case (int)CoursesGridColumn.Delete:
 					MessageBox.Show(String.Format("Delete clicked for course \"{0}\"", course.Name));
