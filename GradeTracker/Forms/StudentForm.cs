@@ -5,8 +5,12 @@ using GradeTracker.Data;
 
 namespace GradeTracker.Forms
 {
+	/// <summary>
+	/// A form to add or edit students.
+	/// </summary>
 	public class StudentForm : Form
 	{
+		#region Class fields
 		Student student = null;
 
 		FlowLayoutPanel flowLayoutPanel;
@@ -18,16 +22,24 @@ namespace GradeTracker.Forms
 		TextBox lastNameTextBox;
 
 		Button submitButton;
+		#endregion
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="GradeTracker.Forms.StudentForm"/> class for adding a student to the database.
+		/// </summary>
 		public StudentForm()
 		{
 			Text = "Add Student";
 
 			InitalizeFlowLayoutPanel();
-			CreateFormFields();
-			CreateButtons();
+			InitializeFormFields();
+			InitializeButtons();
 		}
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="GradeTracker.Forms.StudentForm"/> class for editing a student in the database.
+		/// </summary>
+		/// <param name="student">The student to edit.</param>
 		public StudentForm(Student student)
 		{
 			Text = "Edit Student";
@@ -35,13 +47,16 @@ namespace GradeTracker.Forms
 			this.student = student;
 
 			InitalizeFlowLayoutPanel();
-			CreateFormFields();
-			CreateButtons();
+			InitializeFormFields();
+			InitializeButtons();
 
 			firstNameTextBox.Text = student.FirstName;
 			lastNameTextBox.Text = student.LastName;
 		}
 
+		/// <summary>
+		/// Initalizes the flow layout panel.
+		/// </summary>
 		private void InitalizeFlowLayoutPanel()
 		{
 			flowLayoutPanel = new FlowLayoutPanel() {
@@ -50,7 +65,10 @@ namespace GradeTracker.Forms
 			};
 		}
 
-		private void CreateFormFields()
+		/// <summary>
+		/// Initializes the form fields.
+		/// </summary>
+		private void InitializeFormFields()
 		{
 			FlowLayoutPanel firstNamePanel = new FlowLayoutPanel() {
 				AutoSize = true
@@ -86,7 +104,10 @@ namespace GradeTracker.Forms
 			Controls.Add(flowLayoutPanel);
 		}
 
-		private void CreateButtons()
+		/// <summary>
+		/// Initializes the buttons.
+		/// </summary>
+		private void InitializeButtons()
 		{
 			FlowLayoutPanel buttonsPanel = new FlowLayoutPanel() {
 				AutoSize = true
@@ -97,19 +118,26 @@ namespace GradeTracker.Forms
 				Anchor = AnchorStyles.Bottom
 			};
 
-			submitButton.Click += SubmitButtonClicked;
+			submitButton.Click += SubmitButton_Click;
 
 			buttonsPanel.Controls.Add(submitButton);
 
 			flowLayoutPanel.Controls.Add(buttonsPanel);
 		}
 
+		/// <summary>
+		/// Resets the form fields to their default values.
+		/// </summary>
 		private void ResetForm()
 		{
 			firstNameTextBox.Text = String.Empty;
 			lastNameTextBox.Text = String.Empty;
 		}
 
+		/// <summary>
+		/// Validates the form fields.
+		/// </summary>
+		/// <returns><c>true</c>, if form was validated, <c>false</c> otherwise.</returns>
 		private bool ValidateForm()
 		{
 			if (String.IsNullOrWhiteSpace(firstNameTextBox.Text))
@@ -129,7 +157,12 @@ namespace GradeTracker.Forms
 			return true;
 		}
 
-		private void SubmitButtonClicked(object sender, EventArgs e)
+		/// <summary>
+		/// Handles the form's submit action.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void SubmitButton_Click(object sender, EventArgs e)
 		{
 			if (!ValidateForm()) return;
 

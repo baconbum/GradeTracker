@@ -5,9 +5,12 @@ using GradeTracker.UserControls;
 
 namespace GradeTracker.Forms
 {
+	/// <summary>
+	/// The main form of the Grade Tracker application.
+	/// </summary>
 	public class GradeTrackerForm : Form
 	{
-		#region Class variables and properties
+		#region Class fields
 		private MenuStrip menuStrip;
 		private ToolStripMenuItem fileMenuItem;
 		private ToolStripMenuItem exitMenuItem;
@@ -26,6 +29,9 @@ namespace GradeTracker.Forms
 		private StudentDashboardUserControl studentDashboardControl;
 		#endregion
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="GradeTracker.Forms.GradeTrackerForm"/> class.
+		/// </summary>
 		public GradeTrackerForm()
 		{
 			Text = "Grade Tracker";
@@ -35,9 +41,12 @@ namespace GradeTracker.Forms
 			InitializeSplashTab();
 			InitializeCoursesTab();
 			InitializeStudentsTab();
-			InitializeGradeTrackersTabs();
+			InitializeGradeTrackerTabs();
 		}
 
+		/// <summary>
+		/// Initializes the menu strip.
+		/// </summary>
 		private void InitializeMenuStrip()
 		{
 			menuStrip = new MenuStrip();
@@ -89,6 +98,9 @@ namespace GradeTracker.Forms
 			Controls.Add(menuStrip);
 		}
 
+		/// <summary>
+		/// Initializes the splash tab.
+		/// </summary>
 		private void InitializeSplashTab()
 		{
 			splashTab = new TabPage() {
@@ -106,6 +118,9 @@ namespace GradeTracker.Forms
 			splashTab.Controls.Add(splashControl);
 		}
 
+		/// <summary>
+		/// Initializes the courses tab.
+		/// </summary>
 		private void InitializeCoursesTab()
 		{
 			coursesTab = new TabPage() {
@@ -122,6 +137,9 @@ namespace GradeTracker.Forms
 			coursesTab.Controls.Add(courseDashboardControl);
 		}
 
+		/// <summary>
+		/// Initializes the students tab.
+		/// </summary>
 		private void InitializeStudentsTab()
 		{
 			studentsTab = new TabPage() {
@@ -138,7 +156,10 @@ namespace GradeTracker.Forms
 			studentsTab.Controls.Add(studentDashboardControl);
 		}
 
-		private void InitializeGradeTrackersTabs()
+		/// <summary>
+		/// Initializes the grade tracker tabs.
+		/// </summary>
+		private void InitializeGradeTrackerTabs()
 		{
 			gradeTrackerTabs = new TabControl() {
 				Dock = DockStyle.Fill
@@ -151,22 +172,42 @@ namespace GradeTracker.Forms
 			Controls.Add(gradeTrackerTabs);
 		}
 
+		/// <summary>
+		/// Exits the program.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void ExitProgram (object sender, EventArgs e)
 		{
 			Close();
 		}
 
+		/// <summary>
+		/// Shows the splash tab.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void ShowSplashTab (object sender, EventArgs e)
 		{
 			gradeTrackerTabs.SelectedIndex = 0;
 		}
 
+		/// <summary>
+		/// Shows the courses tab.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void ShowCoursesTab (object sender, EventArgs e)
 		{
 			courseDashboardControl.Refresh();
 			gradeTrackerTabs.SelectedIndex = 1;
 		}
 
+		/// <summary>
+		/// Shows the students tab.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void ShowStudentsTab (object sender, EventArgs e)
 		{
 			studentDashboardControl.Refresh();
