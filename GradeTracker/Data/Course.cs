@@ -4,27 +4,56 @@ using Mono.Data.Sqlite;
 
 namespace GradeTracker.Data
 {
+	/// <summary>
+	/// A course.
+	/// </summary>
 	public class Course
 	{
+		#region Class properties
+		/// <summary>
+		/// Gets or sets the course database identifier.
+		/// </summary>
+		/// <value>The course database identifier.</value>
 		public int Id {
 			get;
 			set;
 		}
 
+		/// <summary>
+		/// Gets or sets the course name.
+		/// </summary>
+		/// <value>The course name.</value>
 		public string Name {
 			get;
 			set;
 		}
 
+		/// <summary>
+		/// Gets or sets the course start date.
+		/// </summary>
+		/// <value>The course start date.</value>
 		public DateTime StartDate {
 			get;
 			set;
 		}
+
+		/// <summary>
+		/// Gets or sets the course end date.
+		/// </summary>
+		/// <value>The course end date.</value>
 		public DateTime EndDate {
 			get;
 			set;
 		}
+		#endregion
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="GradeTracker.Data.Course"/> class.
+		/// </summary>
+		/// <param name="id">Database identifier.</param>
+		/// <param name="name">Course name.</param>
+		/// <param name="startDate">Course start date.</param>
+		/// <param name="endDate">Course end date.</param>
 		public Course(int id, string name, DateTime startDate, DateTime endDate)
 		{
 			Id =		id;
@@ -33,6 +62,10 @@ namespace GradeTracker.Data
 			EndDate =	endDate;
 		}
 
+		/// <summary>
+		/// Retrieve all courses from the database.
+		/// </summary>
+		/// <returns>A list of all courses.</returns>
 		public static List<Course> GetCourses()
 		{
 			List<Course> courses = new List<Course>();
@@ -65,6 +98,13 @@ namespace GradeTracker.Data
 			return courses;
 		}
 
+		/// <summary>
+		/// Add a course to the database.
+		/// </summary>
+		/// <param name="name">Course name.</param>
+		/// <param name="startDate">Course start date.</param>
+		/// <param name="endDate">Course end date.</param>
+		/// <returns>True if course is successfully added, otherwise false.</returns>
 		public static bool Add(string name, DateTime startDate, DateTime endDate)
 		{
 			SqliteConnection conn = DatabaseConnection.GetConnection();
@@ -89,11 +129,20 @@ namespace GradeTracker.Data
 			}
 		}
 
+		/// <summary>
+		/// Delete this course from the database.
+		/// </summary>
+		/// <returns>True if course is successfully deleted, otherwise false.</returns>
 		public bool Delete()
 		{
 			return Delete(Id);
 		}
 
+		/// <summary>
+		/// Delete the specified course from the database.
+		/// </summary>
+		/// <param name="courseId">Course database identifier.</param>
+		/// <returns>True if course is successfully added, otherwise false.</returns>
 		public static bool Delete(int courseId)
 		{
 			SqliteConnection conn = DatabaseConnection.GetConnection();
@@ -118,11 +167,26 @@ namespace GradeTracker.Data
 			}
 		}
 
+		/// <summary>
+		/// Edit this course in the database.
+		/// </summary>
+		/// <param name="name">New course name.</param>
+		/// <param name="startDate">New course start date.</param>
+		/// <param name="endDate">New course end date.</param>
+		/// <returns>True if course is successfully edited, otherwise false.</returns>
 		public bool Edit(string name, DateTime startDate, DateTime endDate)
 		{
 			return Edit(Id, name, startDate, endDate);
 		}
 
+		/// <summary>
+		/// Edit the specified course in the database.
+		/// </summary>
+		/// <param name="courseId">Course identifier.</param>
+		/// <param name="name">New course name.</param>
+		/// <param name="startDate">New course start date.</param>
+		/// <param name="endDate">New course end date.</param>
+		/// <returns>True if course is successfully edited, otherwise false.</returns>
 		public static bool Edit(int courseId, string name, DateTime startDate, DateTime endDate)
 		{
 			SqliteConnection conn = DatabaseConnection.GetConnection();
@@ -151,4 +215,3 @@ namespace GradeTracker.Data
 		}
 	}
 }
-

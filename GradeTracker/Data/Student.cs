@@ -4,23 +4,46 @@ using Mono.Data.Sqlite;
 
 namespace GradeTracker.Data
 {
+	/// <summary>
+	/// A student
+	/// </summary>
 	public class Student
 	{
+		#region Class properties
+		/// <summary>
+		/// Gets or sets the student database identifier.
+		/// </summary>
+		/// <value>The student database identifier.</value>
 		public int Id {
 			get;
 			set;
 		}
 
+		/// <summary>
+		/// Gets or sets the student's first name.
+		/// </summary>
+		/// <value>The student's first name.</value>
 		public string FirstName {
 			get;
 			set;
 		}
 
+		/// <summary>
+		/// Gets or sets the student's last name.
+		/// </summary>
+		/// <value>The student's last name.</value>
 		public string LastName {
 			get;
 			set;
 		}
+		#endregion
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="GradeTracker.Data.Student"/> class.
+		/// </summary>
+		/// <param name="id">Database identifier.</param>
+		/// <param name="firstName">Student's first name.</param>
+		/// <param name="lastName">Student's last name.</param>
 		public Student(int id, string firstName, string lastName)
 		{
 			Id =		id;
@@ -28,6 +51,10 @@ namespace GradeTracker.Data
 			LastName =	lastName;
 		}
 
+		/// <summary>
+		/// Retrieves all students from the database.
+		/// </summary>
+		/// <returns>A list of all students.</returns>
 		public static List<Student> GetStudents()
 		{
 			List<Student> students = new List<Student>();
@@ -59,6 +86,12 @@ namespace GradeTracker.Data
 			return students;
 		}
 
+		/// <summary>
+		/// Add a student to the database.
+		/// </summary>
+		/// <param name="firstName">Student's first name.</param>
+		/// <param name="lastName">Student's last name.</param>
+		/// <returns>True if student is successfully added, otherwise false.</returns>
 		public static bool Add(string firstName, string lastName)
 		{
 			SqliteConnection conn = DatabaseConnection.GetConnection();
@@ -83,11 +116,20 @@ namespace GradeTracker.Data
 			}
 		}
 
+		/// <summary>
+		/// Delete this student from the database.
+		/// </summary>
+		/// <returns>True if student is successfully deleted, otherwise false.</returns>
 		public bool Delete()
 		{
 			return Delete(Id);
 		}
 
+		/// <summary>
+		/// Delete the specified student from the database.
+		/// </summary>
+		/// <param name="studentId">Student database identifier.</param>
+		/// <returns>True if student is successfully deleted, otherwise false.</returns>
 		public static bool Delete(int studentId)
 		{
 			SqliteConnection conn = DatabaseConnection.GetConnection();
@@ -112,11 +154,24 @@ namespace GradeTracker.Data
 			}
 		}
 
+		/// <summary>
+		/// Edit this student in the database.
+		/// </summary>
+		/// <param name="firstName">Student's new first name.</param>
+		/// <param name="lastName">Student's new last name.</param>
+		/// <returns>True if student is successfully edited, otherwise false.</returns>
 		public bool Edit(string firstName, string lastName)
 		{
 			return Edit(Id, firstName, lastName);
 		}
 
+		/// <summary>
+		/// Edit the specified student in the database.
+		/// </summary>
+		/// <param name="studentId">Student database identifier.</param>
+		/// <param name="firstName">Student's new first name.</param>
+		/// <param name="lastName">Student's new last name.</param>
+		/// <returns>True if student is successfully edited, otherwise false.</returns>
 		public static bool Edit(int studentId, string firstName, string lastName)
 		{
 			SqliteConnection conn = DatabaseConnection.GetConnection();
