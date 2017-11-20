@@ -114,14 +114,14 @@ namespace GradeTracker.Forms
 		{
 			if (String.IsNullOrWhiteSpace(firstNameTextBox.Text))
 			{
-				MessageBox.Show("First Name cannot be empty.", "Invalid Student",
+				MessageBox.Show(this, "First Name cannot be empty.", "Invalid Student",
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return false;
 			}
 
 			if (String.IsNullOrWhiteSpace(lastNameTextBox.Text))
 			{
-				MessageBox.Show("Last Name cannot be empty.", "Invalid Student",
+				MessageBox.Show(this, "Last Name cannot be empty.", "Invalid Student",
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return false;
 			}
@@ -140,13 +140,13 @@ namespace GradeTracker.Forms
 			{
 				if (Student.Add(firstName, lastName))
 				{
-					MessageBox.Show(String.Format("Added {0}, {1}", firstName, lastName),
+					MessageBox.Show(this, String.Format("Added {0}, {1}", firstName, lastName),
 						"Student Added", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 					ResetForm();
 				}
 				else
 				{
-					MessageBox.Show(String.Format("Error adding student {0}, {1}", lastName, firstName),
+					MessageBox.Show(this, String.Format("Error adding student {0}, {1}", lastName, firstName),
 						"Error Adding Student", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			}
@@ -154,12 +154,12 @@ namespace GradeTracker.Forms
 			{
 				if (student.Edit(firstName, lastName))
 				{
-					MessageBox.Show(String.Format("Updated {0}, {1}", firstName, lastName),
+					MessageBox.Show(this, String.Format("Updated {0}, {1}", firstName, lastName),
 						"Student Updated", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 				}
 				else
 				{
-					MessageBox.Show(String.Format("Error updating student {0}, {1}", lastName, firstName),
+					MessageBox.Show(this, String.Format("Error updating student {0}, {1}", lastName, firstName),
 						"Error Updating Student", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			}

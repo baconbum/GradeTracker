@@ -134,14 +134,14 @@ namespace GradeTracker.Forms
 		{
 			if (String.IsNullOrWhiteSpace(nameTextBox.Text))
 			{
-				MessageBox.Show("Name cannot be empty.", "Invalid Course",
+				MessageBox.Show(this, "Name cannot be empty.", "Invalid Course",
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return false;
 			}
 
 			if (startDatePicker.Value > endDatePicker.Value)
 			{
-				MessageBox.Show("Start Date cannot be greater than End Date.", "Invalid Course",
+				MessageBox.Show(this, "Start Date cannot be greater than End Date.", "Invalid Course",
 					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return false;
 			}
@@ -161,13 +161,13 @@ namespace GradeTracker.Forms
 			{
 				if (Course.Add(name, startDate, endDate))
 				{
-					MessageBox.Show(String.Format("Added {0}", name),
+					MessageBox.Show(this, String.Format("Added {0}", name),
 						"Course Added", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 					ResetForm();
 				}
 				else
 				{
-					MessageBox.Show(String.Format("Error adding course {0}", name),
+					MessageBox.Show(this, String.Format("Error adding course {0}", name),
 						"Error Adding Course", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			}
@@ -175,12 +175,12 @@ namespace GradeTracker.Forms
 			{
 				if (course.Edit(name, startDate, endDate))
 				{
-					MessageBox.Show(String.Format("Updated {0}", name),
+					MessageBox.Show(this, String.Format("Updated {0}", name),
 						"Course Updated", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 				}
 				else
 				{
-					MessageBox.Show(String.Format("Error updating course {0}", name),
+					MessageBox.Show(this, String.Format("Error updating course {0}", name),
 						"Error Updating Course", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			}

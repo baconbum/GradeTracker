@@ -122,14 +122,14 @@ namespace GradeTracker.UserControls
 			switch (e.ColumnIndex)
 			{
 				case (int)StudentsGridColumn.Enrollment:
-					MessageBox.Show(String.Format("View enrollment clicked for student {0}, {1}", student.LastName, student.FirstName));
+					MessageBox.Show(this, String.Format("View enrollment clicked for student {0}, {1}", student.LastName, student.FirstName));
 					break;
 				case (int)StudentsGridColumn.Edit:
 					StudentForm studentForm = new StudentForm(student);
 					studentForm.Show();
 					break;
 				case (int)StudentsGridColumn.Delete:
-					switch (MessageBox.Show(String.Format("Are you sure you want to delete {0}, {1}", student.LastName, student.FirstName),
+					switch (MessageBox.Show(this, String.Format("Are you sure you want to delete {0}, {1}", student.LastName, student.FirstName),
 						"Delete Student", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation))
 					{
 						case DialogResult.OK:
