@@ -59,7 +59,7 @@ namespace GradeTracker.Data
 			return students;
 		}
 
-		public static bool AddStudentToDatabase(string firstName, string lastName)
+		public static bool Add(string firstName, string lastName)
 		{
 			SqliteConnection conn = DatabaseConnection.GetConnection();
 			conn.Open();

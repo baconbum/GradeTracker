@@ -65,7 +65,7 @@ namespace GradeTracker.Data
 			return courses;
 		}
 
-		public static bool AddCourseToDatabase(string name, DateTime startDate, DateTime endDate)
+		public static bool Add(string name, DateTime startDate, DateTime endDate)
 		{
 			SqliteConnection conn = DatabaseConnection.GetConnection();
 			conn.Open();

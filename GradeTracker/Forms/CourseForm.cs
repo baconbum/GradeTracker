@@ -138,7 +138,7 @@ namespace GradeTracker.Forms
 
 			if (course == null)
 			{
-				if (Course.AddCourseToDatabase(name, startDate, endDate))
+				if (Course.Add(name, startDate, endDate))
 				{
 					MessageBox.Show(String.Format("Added {0}", name),
 						"Course Added", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);

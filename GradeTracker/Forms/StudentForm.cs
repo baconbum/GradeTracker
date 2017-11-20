@@ -117,7 +117,7 @@ namespace GradeTracker.Forms
 
 			if (student == null)
 			{
-				if (Student.AddStudentToDatabase(firstName, lastName))
+				if (Student.Add(firstName, lastName))
 				{
 					MessageBox.Show(String.Format("Added {0}, {1}", firstName, lastName),
 						"Student Added", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
