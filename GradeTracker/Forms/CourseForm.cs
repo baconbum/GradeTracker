@@ -125,7 +125,9 @@ namespace GradeTracker.Forms
 
 		private void ResetForm()
 		{
-			nameTextBox.Text = String.Empty;
+			nameTextBox.Text =		String.Empty;
+			startDatePicker.Value =	DateTime.Now;
+			endDatePicker.Value =	DateTime.Now;
 		}
 
 		private void SubmitButtonClicked(object sender, EventArgs e)
