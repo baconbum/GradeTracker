@@ -41,7 +41,9 @@ namespace GradeTracker.Forms
 			CreateFormFields();
 			CreateButtons();
 
-			nameTextBox.Text = course.Name;
+			nameTextBox.Text =		course.Name;
+			startDatePicker.Value =	course.StartDate;
+			endDatePicker.Value =	course.EndDate;
 		}
 
 		private void InitalizeFlowLayoutPanel()

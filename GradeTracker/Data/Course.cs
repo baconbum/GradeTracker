@@ -16,10 +16,21 @@ namespace GradeTracker.Data
 			set;
 		}
 
-		public Course(int id, string name)
+		public DateTime StartDate {
+			get;
+			set;
+		}
+		public DateTime EndDate {
+			get;
+			set;
+		}
+
+		public Course(int id, string name, DateTime startDate, DateTime endDate)
 		{
-			Id =	id;
-			Name =	name;
+			Id =		id;
+			Name =		name;
+			StartDate =	startDate;
+			EndDate =	endDate;
 		}
 
 		public static List<Course> GetCourses()
@@ -31,7 +42,7 @@ namespace GradeTracker.Data
 			SqliteCommand command = conn.CreateCommand();
 
 			const string sql =
-				"SELECT ID, Name " +
+				"SELECT ID, Name, StartDate, EndDate " +
 				"FROM Courses";
 
 			command.CommandText = sql;
@@ -39,10 +50,12 @@ namespace GradeTracker.Data
 
 			while(reader.Read())
 			{
-				int id =		reader.GetInt32(0);
-				string name =	reader.GetString(1);
+				int id =				reader.GetInt32(0);
+				string name =			reader.GetString(1);
+				DateTime startDate =	reader.GetDateTime(2);
+				DateTime endDate =		reader.GetDateTime(3);
 
-				courses.Add(new Course(id, name));
+				courses.Add(new Course(id, name, startDate, endDate));
 			}
 
 			// clean up
@@ -62,7 +75,7 @@ namespace GradeTracker.Data
 				"INSERT INTO Courses(Name, StartDate, EndDate) " +
 				"VALUES ('{0}', '{1}', '{2}')";
 
-			command.CommandText = String.Format(courseInsertFormat, name, startDate.ToString(), endDate.ToString());
+			command.CommandText = String.Format(courseInsertFormat, name, startDate.ToString("u"), endDate.ToString("u"));
 
 			try {
 				command.ExecuteNonQuery();
@@ -123,7 +136,7 @@ namespace GradeTracker.Data
 				"EndDate = '{3}' " +
 				"WHERE ID = {0}";
 
-			command.CommandText = String.Format(courseUpdateFormat, courseId, name, startDate.ToString(), endDate.ToString());
+			command.CommandText = String.Format(courseUpdateFormat, courseId, name, startDate.ToString("u"), endDate.ToString("u"));
 
 			try {
 				command.ExecuteNonQuery();
