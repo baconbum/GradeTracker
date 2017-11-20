@@ -135,7 +135,6 @@ namespace GradeTracker.Forms
 				{
 					MessageBox.Show(String.Format("Updated {0}, {1}", firstName, lastName),
 						"Student Updated", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-					ResetForm();
 				}
 				else
 				{
