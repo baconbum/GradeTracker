@@ -128,17 +128,38 @@ namespace GradeTracker.Forms
 
 		private void SubmitButtonClicked(object sender, EventArgs e)
 		{
-			string name =	nameTextBox.Text;
+			string name =			nameTextBox.Text;
+			DateTime startDate =	startDatePicker.Value;
+			DateTime endDate =		endDatePicker.Value;
 
 			if (course == null)
 			{
-				MessageBox.Show("Adding Course");
+				if (Course.AddCourseToDatabase(name, startDate, endDate))
+				{
+					MessageBox.Show(String.Format("Added {0}", name),
+						"Course Added", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+					ResetForm();
+				}
+				else
+				{
+					MessageBox.Show(String.Format("Error adding course {0}", name),
+						"Error Adding Course", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
 			}
 			else
 			{
-				MessageBox.Show("Editing Course");
+				if (course.Edit(name, startDate, endDate))
+				{
+					MessageBox.Show(String.Format("Updated {0}", name),
+						"Course Updated", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+					ResetForm();
+				}
+				else
+				{
+					MessageBox.Show(String.Format("Error updating course {0}", name),
+						"Error Updating Course", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
 			}
 		}
 	}
 }
-

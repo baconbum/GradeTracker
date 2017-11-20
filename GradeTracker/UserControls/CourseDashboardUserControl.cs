@@ -147,7 +147,16 @@ namespace GradeTracker.UserControls
 					courseForm.Show();
 					break;
 				case (int)CoursesGridColumn.Delete:
-					MessageBox.Show(String.Format("Delete clicked for course \"{0}\"", course.Name));
+					switch (MessageBox.Show(String.Format("Are you sure you want to delete {0}", course.Name),
+						"Delete Course", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation))
+					{
+						case DialogResult.OK:
+							course.Delete();
+							break;
+						default:
+							break;
+					}
+					Refresh();
 					break;
 			}
 		}
