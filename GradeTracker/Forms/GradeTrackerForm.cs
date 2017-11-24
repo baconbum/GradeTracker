@@ -10,7 +10,7 @@ namespace GradeTracker.Forms
 	/// </summary>
 	public class GradeTrackerForm : Form
 	{
-		#region Class fields
+		#region Form elements
 		private MenuStrip menuStrip;
 		private ToolStripMenuItem fileMenuItem;
 		private ToolStripMenuItem exitMenuItem;
@@ -28,6 +28,15 @@ namespace GradeTracker.Forms
 		private CourseDashboardUserControl courseDashboardControl;
 		private StudentDashboardUserControl studentDashboardControl;
 		#endregion
+
+		/// <summary>
+		/// Maps the tabs of the Grade Tracker form.
+		/// </summary>
+		private enum GradeTrackerTabsIndex {
+			Splash =	0,
+			Courses =	1,
+			Students =	2
+		};
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="GradeTracker.Forms.GradeTrackerForm"/> class.
@@ -189,7 +198,7 @@ namespace GradeTracker.Forms
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void ShowSplashTab (object sender, EventArgs e)
 		{
-			gradeTrackerTabs.SelectedIndex = 0;
+			gradeTrackerTabs.SelectedIndex = (int)GradeTrackerTabsIndex.Splash;
 		}
 
 		/// <summary>
@@ -200,7 +209,7 @@ namespace GradeTracker.Forms
 		private void ShowCoursesTab (object sender, EventArgs e)
 		{
 			courseDashboardControl.Refresh();
-			gradeTrackerTabs.SelectedIndex = 1;
+			gradeTrackerTabs.SelectedIndex = (int)GradeTrackerTabsIndex.Courses;
 		}
 
 		/// <summary>
@@ -211,7 +220,7 @@ namespace GradeTracker.Forms
 		private void ShowStudentsTab (object sender, EventArgs e)
 		{
 			studentDashboardControl.Refresh();
-			gradeTrackerTabs.SelectedIndex = 2;
+			gradeTrackerTabs.SelectedIndex = (int)GradeTrackerTabsIndex.Students;
 		}
 	}
 }
