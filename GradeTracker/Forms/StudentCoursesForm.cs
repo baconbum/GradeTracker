@@ -85,13 +85,14 @@ namespace GradeTracker.Forms
 
 			coursesGrid.Rows.Clear();
 
-			List<Course> courses = Course.GetCourses();
+			List<StudentCourse> courses = student.GetEnrollment();
 
-			foreach(Course course in courses)
+			foreach(StudentCourse course in courses)
 			{
 				DataGridViewRow row = new DataGridViewRow(){ Tag = course };
 
 				row.Cells.Add(new DataGridViewTextBoxCell(){ Value = course.Name });
+				row.Cells.Add(new DataGridViewTextBoxCell(){ Value = (course.IsEnrolled) ? "Yes" : "No" });
 
 				coursesGrid.Rows.Add(row);
 			}

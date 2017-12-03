@@ -197,5 +197,41 @@ namespace GradeTracker.Data
 				conn.Close();
 			}
 		}
+
+		public List<StudentCourse> GetEnrollment()
+		{
+			List<StudentCourse> courses = new List<StudentCourse>();
+
+			SqliteConnection conn = DatabaseConnection.GetConnection();
+			conn.Open();
+			SqliteCommand command = conn.CreateCommand();
+
+			const string enrollmentSqlFormat =
+				"SELECT c.ID, c.Name, c.StartDate, c.EndDate, " +
+				"CASE WHEN sc.StudentID IS NOT NULL THEN 1 ELSE 0 END " +
+				"FROM Courses c " +
+				"LEFT JOIN (SELECT * FROM StudentCourses WHERE StudentID = {0}) sc " +
+				"ON c.ID = sc.CourseID";
+
+			command.CommandText = String.Format(enrollmentSqlFormat, Id);
+			SqliteDataReader reader = command.ExecuteReader();
+
+			while(reader.Read())
+			{
+				int id =				reader.GetInt32(0);
+				string name =			reader.GetString(1);
+				DateTime startDate =	reader.GetDateTime(2);
+				DateTime endDate =		reader.GetDateTime(3);
+				bool isEnrolled =		reader.GetBoolean(4);
+
+				courses.Add(new StudentCourse(id, name, startDate, endDate, Id, isEnrolled));
+			}
+
+			// clean up
+			reader.Close();
+			conn.Close();
+
+			return courses;
+		}
 	}
 }
