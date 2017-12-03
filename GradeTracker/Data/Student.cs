@@ -198,6 +198,10 @@ namespace GradeTracker.Data
 			}
 		}
 
+		/// <summary>
+		/// Get a list of courses with the student's enrollment status.
+		/// </summary>
+		/// <returns>A list of courses with the student's enrollment status.</returns>
 		public List<StudentCourse> GetEnrollment()
 		{
 			List<StudentCourse> courses = new List<StudentCourse>();
@@ -234,6 +238,11 @@ namespace GradeTracker.Data
 			return courses;
 		}
 
+		/// <summary>
+		/// Enrolls the student in the specified course.
+		/// </summary>
+		/// <returns><c>true</c>, if in student was enrolled, <c>false</c> otherwise.</returns>
+		/// <param name="courseId">Course database identifier.</param>
 		public bool EnrollInCourse(int courseId)
 		{
 			SqliteConnection conn = DatabaseConnection.GetConnection();
@@ -258,6 +267,11 @@ namespace GradeTracker.Data
 			}
 		}
 
+		/// <summary>
+		/// Withdraws the student from the specified course.
+		/// </summary>
+		/// <returns><c>true</c>, if from student was withdrawn, <c>false</c> otherwise.</returns>
+		/// <param name="courseId">Course database identifier.</param>
 		public bool WithdrawFromCourse(int courseId)
 		{
 			SqliteConnection conn = DatabaseConnection.GetConnection();
