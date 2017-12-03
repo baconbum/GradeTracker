@@ -47,7 +47,7 @@ namespace GradeTracker.Forms
 			coursesGrid.Columns.Add(new DataGridViewTextBoxColumn() { HeaderText = "Is Enrolled" });
 
 			coursesGrid.Columns.Add(new DataGridViewButtonColumn() {
-				HeaderText = "Add/Remove",
+				HeaderText = "Enroll/Withdraw",
 				Text = "Toggle Enrollment",
 				UseColumnTextForButtonValue = true
 			});
@@ -65,12 +65,49 @@ namespace GradeTracker.Forms
 		private void CoursesGrid_Clicked(object sender, DataGridViewCellEventArgs e)
 		{
 			DataGridViewRow row = coursesGrid.Rows[e.RowIndex];
-			Course course = (Course)row.Tag;
+			StudentCourse course = (StudentCourse)row.Tag;
 
 			switch (e.ColumnIndex)
 			{
 				case (int)CoursesGridColumn.ToggleEnrollment:
-					MessageBox.Show(this, String.Format("Toggle enrollment clicked for course \"{0}\"", course.Name));
+					if (course.IsEnrolled)
+					{
+						switch (MessageBox.Show(this,
+							String.Format("Are you sure you want to withdraw {0}, {1} from {2}",
+								student.LastName, student.FirstName, course.Name),
+							"Withdraw from Course", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation))
+						{
+							case DialogResult.OK:
+								if (!student.WithdrawFromCourse(course.Id))
+								{
+									MessageBox.Show(this,
+										"An error has occurred while attempting to withdraw the student from the course",
+										"Withdrawal error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+								}
+								break;
+							default:
+								break;
+						}
+					}
+					else
+					{
+						switch (MessageBox.Show(this,
+							String.Format("Are you sure you want to enroll {0}, {1} in {2}",
+								student.LastName, student.FirstName, course.Name),
+							"Enroll in Course", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation))
+						{
+							case DialogResult.OK:
+								if (!student.EnrollInCourse(course.Id))
+								{
+									MessageBox.Show(this,
+										"An error has occurred while attempting to enroll the student in the course",
+										"Enrollment error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+								}
+								break;
+							default:
+								break;
+						}
+					}
 					Refresh();
 					break;
 			}
@@ -93,6 +130,8 @@ namespace GradeTracker.Forms
 
 				row.Cells.Add(new DataGridViewTextBoxCell(){ Value = course.Name });
 				row.Cells.Add(new DataGridViewTextBoxCell(){ Value = (course.IsEnrolled) ? "Yes" : "No" });
+
+				row.Cells.Add(new DataGridViewButtonCell(){ Value = (course.IsEnrolled) ? "Withdraw" : "Enroll" });
 
 				coursesGrid.Rows.Add(row);
 			}

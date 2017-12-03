@@ -233,5 +233,54 @@ namespace GradeTracker.Data
 
 			return courses;
 		}
+
+		public bool EnrollInCourse(int courseId)
+		{
+			SqliteConnection conn = DatabaseConnection.GetConnection();
+			conn.Open();
+			SqliteCommand command = conn.CreateCommand();
+
+			const string enrollmentSqlFormat =
+				"INSERT INTO StudentCourses (StudentID, CourseID) " +
+				"VALUES ('{0}', '{1}')";
+
+			command.CommandText = String.Format(enrollmentSqlFormat, Id, courseId);
+
+			try {
+				command.ExecuteNonQuery();
+				return true;
+			}
+			catch (Exception) {
+				return false;
+			}
+			finally {
+				conn.Close();
+			}
+		}
+
+		public bool WithdrawFromCourse(int courseId)
+		{
+			SqliteConnection conn = DatabaseConnection.GetConnection();
+			conn.Open();
+			SqliteCommand command = conn.CreateCommand();
+
+			const string withdrawlSqlFormat =
+				"DELETE FROM StudentCourses " +
+				"WHERE StudentID = {0} " +
+				"AND CourseID = {1}";
+
+			command.CommandText = String.Format(withdrawlSqlFormat, Id, courseId);
+
+			try {
+				command.ExecuteNonQuery();
+				return true;
+			}
+			catch (Exception) {
+				return false;
+			}
+			finally {
+				conn.Close();
+			}
+		}
 	}
 }
