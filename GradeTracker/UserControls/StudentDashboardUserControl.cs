@@ -138,7 +138,8 @@ namespace GradeTracker.UserControls
 			switch (e.ColumnIndex)
 			{
 				case (int)StudentsGridColumn.Enrollment:
-					MessageBox.Show(this, String.Format("View enrollment clicked for student {0}, {1}", student.LastName, student.FirstName));
+					StudentCoursesForm studentCoursesForm = new StudentCoursesForm(student);
+					studentCoursesForm.Show();
 					break;
 				case (int)StudentsGridColumn.Edit:
 					StudentForm studentForm = new StudentForm(student);

@@ -46,6 +46,7 @@
     <Compile Include="UserControls\CourseDashboardUserControl.cs" />
     <Compile Include="Forms\StudentForm.cs" />
     <Compile Include="Forms\CourseForm.cs" />
+    <Compile Include="Forms\StudentCoursesForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
