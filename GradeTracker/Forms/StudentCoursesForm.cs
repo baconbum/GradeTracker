@@ -72,43 +72,61 @@ namespace GradeTracker.Forms
 				case (int)CoursesGridColumn.ToggleEnrollment:
 					if (course.IsEnrolled)
 					{
-						switch (MessageBox.Show(this,
-							String.Format("Are you sure you want to withdraw {0}, {1} from {2}",
-								student.LastName, student.FirstName, course.Name),
-							"Withdraw from Course", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation))
-						{
-							case DialogResult.OK:
-								if (!student.WithdrawFromCourse(course.Id))
-								{
-									MessageBox.Show(this,
-										"An error has occurred while attempting to withdraw the student from the course",
-										"Withdrawal error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-								}
-								break;
-							default:
-								break;
-						}
+						WithdrawStudentFromCourse(course);
 					}
 					else
 					{
-						switch (MessageBox.Show(this,
-							String.Format("Are you sure you want to enroll {0}, {1} in {2}",
-								student.LastName, student.FirstName, course.Name),
-							"Enroll in Course", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation))
-						{
-							case DialogResult.OK:
-								if (!student.EnrollInCourse(course.Id))
-								{
-									MessageBox.Show(this,
-										"An error has occurred while attempting to enroll the student in the course",
-										"Enrollment error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-								}
-								break;
-							default:
-								break;
-						}
+						EnrollStudentInCourse(course);
 					}
 					Refresh();
+					break;
+			}
+		}
+
+		/// <summary>
+		/// Enrolls the student in the specified course.
+		/// </summary>
+		/// <param name="course">The course to enroll the student in.</param>
+		private void EnrollStudentInCourse(Course course)
+		{
+			switch (MessageBox.Show(this,
+				String.Format("Are you sure you want to enroll {0}, {1} in {2}",
+					student.LastName, student.FirstName, course.Name),
+				"Enroll in Course", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation))
+			{
+				case DialogResult.OK:
+					if (!student.EnrollInCourse(course.Id))
+					{
+						MessageBox.Show(this,
+							"An error has occurred while attempting to enroll the student in the course",
+							"Enrollment error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					break;
+				default:
+					break;
+			}
+		}
+
+		/// <summary>
+		/// Withdraws the student from the specified course.
+		/// </summary>
+		/// <param name="course">The course to withdraw the student from.</param>
+		private void WithdrawStudentFromCourse(Course course)
+		{
+			switch (MessageBox.Show(this,
+				String.Format("Are you sure you want to withdraw {0}, {1} from {2}",
+					student.LastName, student.FirstName, course.Name),
+				"Withdraw from Course", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation))
+			{
+				case DialogResult.OK:
+					if (!student.WithdrawFromCourse(course.Id))
+					{
+						MessageBox.Show(this,
+							"An error has occurred while attempting to withdraw the student from the course",
+							"Withdrawal error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					break;
+				default:
 					break;
 			}
 		}
@@ -138,4 +156,3 @@ namespace GradeTracker.Forms
 		}
 	}
 }
-
