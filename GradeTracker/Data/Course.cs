@@ -258,7 +258,7 @@ namespace GradeTracker.Data
 		/// </summary>
 		/// <returns><c>true</c>, if in student was enrolled, <c>false</c> otherwise.</returns>
 		/// <param name="studentId">Student database identifier.</param>
-		public bool EnrollInCourse(int studentId)
+		public bool EnrollStudent(int studentId)
 		{
 			SqliteConnection conn = DatabaseConnection.GetConnection();
 			conn.Open();
@@ -287,7 +287,7 @@ namespace GradeTracker.Data
 		/// </summary>
 		/// <returns><c>true</c>, if from student was withdrawn, <c>false</c> otherwise.</returns>
 		/// <param name="studentId">Student database identifier.</param>
-		public bool WithdrawFromCourse(int studentId)
+		public bool WithdrawStudent(int studentId)
 		{
 			SqliteConnection conn = DatabaseConnection.GetConnection();
 			conn.Open();

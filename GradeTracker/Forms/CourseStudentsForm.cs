@@ -96,7 +96,7 @@ namespace GradeTracker
 				"Enroll in Course", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation))
 			{
 				case DialogResult.OK:
-					if (!course.EnrollInCourse(student.Id))
+					if (!course.EnrollStudent(student.Id))
 					{
 						MessageBox.Show(this,
 							"An error has occurred while attempting to enroll the student in the course",
@@ -120,7 +120,7 @@ namespace GradeTracker
 				"Withdraw from Course", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation))
 			{
 				case DialogResult.OK:
-					if (!course.WithdrawFromCourse(student.Id))
+					if (!course.WithdrawStudent(student.Id))
 					{
 						MessageBox.Show(this,
 							"An error has occurred while attempting to withdraw the student from the course",
