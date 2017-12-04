@@ -1,7 +1,6 @@
 ﻿using System;
-using GradeTracker.Data;
 
-namespace GradeTracker
+namespace GradeTracker.Data
 {
 	/// <summary>
 	/// An extension of the Course class, with additional properties that link it to a student
