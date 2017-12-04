@@ -213,5 +213,103 @@ namespace GradeTracker.Data
 				conn.Close();
 			}
 		}
+
+		/// <summary>
+		/// Get a list of students with the course's enrollment status.
+		/// </summary>
+		/// <returns>A list of students with the course's enrollment status.</returns>
+		public List<CourseStudent> GetEnrollment()
+		{
+			List<CourseStudent> students = new List<CourseStudent>();
+
+			SqliteConnection conn = DatabaseConnection.GetConnection();
+			conn.Open();
+			SqliteCommand command = conn.CreateCommand();
+
+			const string enrollmentSqlFormat =
+				"SELECT s.ID, s.FirstName, s.LastName " +
+				"CASE WHEN sc.CourseID IS NOT NULL THEN 1 ELSE 0 END " +
+				"FROM Students s " +
+				"LEFT JOIN (SELECT * FROM StudentCourses WHERE CourseID = {0}) sc " +
+				"ON s.ID = sc.StudentID";
+
+			command.CommandText = String.Format(enrollmentSqlFormat, Id);
+			SqliteDataReader reader = command.ExecuteReader();
+
+			while(reader.Read())
+			{
+				int studentId =			reader.GetInt32(0);
+				string firstName =		reader.GetString(1);
+				string lastName =		reader.GetString(2);
+				bool isEnrolled =		reader.GetBoolean(3);
+
+				students.Add(new CourseStudent(studentId, firstName, lastName, Id, isEnrolled));
+			}
+
+			// clean up
+			reader.Close();
+			conn.Close();
+
+			return students;
+		}
+
+		/// <summary>
+		/// Enrolls the specified student in the course.
+		/// </summary>
+		/// <returns><c>true</c>, if in student was enrolled, <c>false</c> otherwise.</returns>
+		/// <param name="studentId">Student database identifier.</param>
+		public bool EnrollInCourse(int studentId)
+		{
+			SqliteConnection conn = DatabaseConnection.GetConnection();
+			conn.Open();
+			SqliteCommand command = conn.CreateCommand();
+
+			const string enrollmentSqlFormat =
+				"INSERT INTO StudentCourses (StudentID, CourseID) " +
+				"VALUES ('{0}', '{1}')";
+
+			command.CommandText = String.Format(enrollmentSqlFormat, studentId, Id);
+
+			try {
+				command.ExecuteNonQuery();
+				return true;
+			}
+			catch (Exception) {
+				return false;
+			}
+			finally {
+				conn.Close();
+			}
+		}
+
+		/// <summary>
+		/// Withdraws the specified student from the course.
+		/// </summary>
+		/// <returns><c>true</c>, if from student was withdrawn, <c>false</c> otherwise.</returns>
+		/// <param name="studentId">Student database identifier.</param>
+		public bool WithdrawFromCourse(int studentId)
+		{
+			SqliteConnection conn = DatabaseConnection.GetConnection();
+			conn.Open();
+			SqliteCommand command = conn.CreateCommand();
+
+			const string withdrawlSqlFormat =
+				"DELETE FROM StudentCourses " +
+				"WHERE StudentID = {0} " +
+				"AND CourseID = {1}";
+
+			command.CommandText = String.Format(withdrawlSqlFormat, studentId, Id);
+
+			try {
+				command.ExecuteNonQuery();
+				return true;
+			}
+			catch (Exception) {
+				return false;
+			}
+			finally {
+				conn.Close();
+			}
+		}
 	}
 }
