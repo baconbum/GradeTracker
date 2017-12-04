@@ -227,7 +227,7 @@ namespace GradeTracker.Data
 			SqliteCommand command = conn.CreateCommand();
 
 			const string enrollmentSqlFormat =
-				"SELECT s.ID, s.FirstName, s.LastName " +
+				"SELECT s.ID, s.FirstName, s.LastName, " +
 				"CASE WHEN sc.CourseID IS NOT NULL THEN 1 ELSE 0 END " +
 				"FROM Students s " +
 				"LEFT JOIN (SELECT * FROM StudentCourses WHERE CourseID = {0}) sc " +
