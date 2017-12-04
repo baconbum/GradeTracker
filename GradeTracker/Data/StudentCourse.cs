@@ -3,6 +3,10 @@ using GradeTracker.Data;
 
 namespace GradeTracker
 {
+	/// <summary>
+	/// An extension of the Course class, with additional properties that link it to a student
+	/// and contains enrollment status.
+	/// </summary>
 	public class StudentCourse : Course
 	{
 		#region Class properties
@@ -19,10 +23,6 @@ namespace GradeTracker
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="GradeTracker.Data.StudentCourse"/> class.
-		/// <para>
-		/// This class is an extension of the Course class, with additional properties that link it to a student
-		/// and contains enrollment status.
-		/// </para>
 		/// </summary>
 		/// <param name="id">Database identifier.</param>
 		/// <param name="name">Course name.</param>
@@ -38,4 +38,3 @@ namespace GradeTracker
 		}
 	}
 }
-
