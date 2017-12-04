@@ -49,6 +49,7 @@
     <Compile Include="Forms\StudentCoursesForm.cs" />
     <Compile Include="Data\StudentCourse.cs" />
     <Compile Include="Data\CourseStudent.cs" />
+    <Compile Include="Forms\CourseStudentsForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
