@@ -27,7 +27,8 @@ CREATE TABLE IF NOT EXISTS StudentCourses(
 	StudentID		INTEGER,
 	CourseID		INTEGER,
 	FOREIGN KEY(StudentID)	REFERENCES Students(ID),
-	FOREIGN KEY(CourseID)	REFERENCES Courses(ID)
+	FOREIGN KEY(CourseID)	REFERENCES Courses(ID),
+	PRIMARY KEY(StudentID, CourseID)
 );
 
 CREATE TABLE IF NOT EXISTS StudentGradeableTasks(
@@ -36,7 +37,8 @@ CREATE TABLE IF NOT EXISTS StudentGradeableTasks(
 	EarnedMarks		REAL,
 	NoMark			BOOLEAN,
 	FOREIGN KEY(StudentID)			REFERENCES Students(ID),
-	FOREIGN KEY(GradeableTaskID)	REFERENCES GradeableTasks(ID)
+	FOREIGN KEY(GradeableTaskID)	REFERENCES GradeableTasks(ID),
+	PRIMARY KEY(StudentID, GradeableTaskID)
 );
 
 COMMIT;
