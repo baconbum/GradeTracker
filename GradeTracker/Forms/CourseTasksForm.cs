@@ -14,6 +14,14 @@ namespace GradeTracker.Forms
 		private DataGridView tasksGrid;
 		#endregion
 
+		/// <summary>
+		/// Maps the columns of the Tasks grid.
+		/// </summary>
+		private enum GradeableTasksGridColumn {
+			Edit = 4,
+			Delete = 5
+		};
+
 		public CourseTasksForm(Course course)
 		{
 			this.course = course;
@@ -47,8 +55,7 @@ namespace GradeTracker.Forms
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void AddNewTaskButton_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show(this, "Add new task button clicked.", "Add New Task",
-				MessageBoxButtons.OK, MessageBoxIcon.Information);
+			new GradeableTaskForm(course).Show();
 		}
 
 		/// <summary>
@@ -68,7 +75,43 @@ namespace GradeTracker.Forms
 			tasksGrid.Columns.Add(new DataGridViewTextBoxColumn(){ HeaderText = "Marks" });
 			tasksGrid.Columns.Add(new DataGridViewTextBoxColumn(){ HeaderText = "Weight" });
 
+			tasksGrid.Columns.Add(new DataGridViewButtonColumn() {
+				HeaderText =	"Edit",
+				Text =			"Edit",
+				UseColumnTextForButtonValue = true
+			});
+
+			tasksGrid.Columns.Add(new DataGridViewButtonColumn() {
+				HeaderText =	"Delete",
+				Text =			"Delete",
+				UseColumnTextForButtonValue = true
+			});
+
+			tasksGrid.CellClick += TasksGrid_CellClick;
+
 			Controls.Add(tasksGrid);
+		}
+
+		/// <summary>
+		/// Handles the Task grid's click event.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="DataGridViewCellEventArgs"/> instance containing the event data.</param>
+		private void TasksGrid_CellClick (object sender, DataGridViewCellEventArgs e)
+		{
+			DataGridViewRow row = tasksGrid.Rows[e.RowIndex];
+			GradeableTask task = (GradeableTask)row.Tag;
+
+			switch (e.ColumnIndex)
+			{
+				case (int)GradeableTasksGridColumn.Edit:
+					new GradeableTaskForm(task).Show();
+					break;
+				case (int)GradeableTasksGridColumn.Delete:
+					MessageBox.Show(this, String.Format("Delete button pressed for {0}", task.Name), "Delete Task",
+						MessageBoxButtons.OK, MessageBoxIcon.Information);
+					break;
+			}
 		}
 
 		/// <summary>
