@@ -311,5 +311,39 @@ namespace GradeTracker.Data
 				conn.Close();
 			}
 		}
+
+		public List<GradeableTask> GetTasks()
+		{
+			List<GradeableTask> tasks = new List<GradeableTask>();
+
+			SqliteConnection conn = DatabaseConnection.GetConnection();
+			conn.Open();
+			SqliteCommand command = conn.CreateCommand();
+
+			const string selectTasksSqlFormat =
+				"SELECT ID, Name, DueDate, PotentialMarks, Weight " +
+				"FROM GradeableTasks " +
+				"WHERE CourseID = {0}";
+
+			command.CommandText = String.Format(selectTasksSqlFormat, Id);
+			SqliteDataReader reader = command.ExecuteReader();
+
+			while(reader.Read())
+			{
+				int id =				reader.GetInt32(0);
+				string name =			reader.GetString(1);
+				DateTime dueDate =		reader.GetDateTime(2);
+				double potentialMarks =	reader.GetDouble(3);
+				double weight =			reader.GetDouble(4);
+
+				tasks.Add(new GradeableTask(id, this.Id, name, dueDate, potentialMarks, weight));
+			}
+
+			// clean up
+			reader.Close();
+			conn.Close();
+
+			return tasks;
+		}
 	}
 }

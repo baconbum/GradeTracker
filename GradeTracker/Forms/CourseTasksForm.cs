@@ -23,6 +23,7 @@ namespace GradeTracker.Forms
 
 			InitializeAddNewTaskButton();
 			InitializeTasksGrid();
+			Refresh();
 		}
 
 		/// <summary>
@@ -68,6 +69,28 @@ namespace GradeTracker.Forms
 			tasksGrid.Columns.Add(new DataGridViewTextBoxColumn(){ HeaderText = "Weight" });
 
 			Controls.Add(tasksGrid);
+		}
+
+		/// <summary>
+		/// Refresh the form, and ensure the Tasks grid is up to date.
+		/// </summary>
+		public override void Refresh()
+		{
+			base.Refresh();
+
+			tasksGrid.Rows.Clear();
+
+			foreach(GradeableTask task in course.GetTasks())
+			{
+				DataGridViewRow row = new DataGridViewRow(){ Tag = task };
+
+				row.Cells.Add(new DataGridViewTextBoxCell(){ Value = task.Name });
+				row.Cells.Add(new DataGridViewTextBoxCell(){ Value = task.DueDate.ToShortDateString() });
+				row.Cells.Add(new DataGridViewTextBoxCell(){ Value = task.PotentialMarks.ToString() });
+				row.Cells.Add(new DataGridViewTextBoxCell(){ Value = String.Format("{0}%", task.Weight.ToString()) });
+
+				tasksGrid.Rows.Add(row);
+			}
 		}
 	}
 }
