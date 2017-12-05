@@ -160,14 +160,68 @@ namespace GradeTracker.Forms
 		}
 
 		/// <summary>
+		/// Resets the form fields to their default values.
+		/// </summary>
+		private void ResetForm()
+		{
+			nameTextBox.Text =				String.Empty;
+			dueDatePicker.Value =			DateTime.Now;
+			potentialMarksTextBox.Text =	String.Empty;
+			weightTextBox.Text =			String.Empty;
+		}
+
+		/// <summary>
+		/// Validates the form fields.
+		/// </summary>
+		/// <returns><c>true</c>, if form was validated, <c>false</c> otherwise.</returns>
+		private bool ValidateForm()
+		{
+			//TODO: Implement validation
+
+			return true;
+		}
+
+		/// <summary>
 		/// Handles the form's submit action.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void SubmitButton_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show(this, "Submit button clicked", "Task Submit",
-				MessageBoxButtons.OK, MessageBoxIcon.Information);
+			if (!ValidateForm()) return;
+
+			string name =			nameTextBox.Text;
+			DateTime dueDate =		dueDatePicker.Value;
+			double potentialMarks =	Double.Parse(potentialMarksTextBox.Text);
+			double weight =			Double.Parse(weightTextBox.Text);
+
+			if (task == null && course != null)
+			{
+				if (course.AddGradeableTask(name, dueDate, potentialMarks, weight))
+				{
+					MessageBox.Show(this, String.Format("Added {0}", name),
+						"Task Added", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+					ResetForm();
+				}
+				else
+				{
+					MessageBox.Show(this, String.Format("Error adding task {0}", name),
+						"Error Adding Task", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+			}
+			else if (task != null)
+			{
+				if (task.Edit(name, dueDate, potentialMarks, weight))
+				{
+					MessageBox.Show(this, String.Format("Updated {0}", name),
+						"Task Updated", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+				}
+				else
+				{
+					MessageBox.Show(this, String.Format("Error updating task {0}", name),
+						"Error Updating Task", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+			}
 		}
 	}
 }

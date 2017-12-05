@@ -142,7 +142,7 @@ namespace GradeTracker.Data
 		/// Delete the specified course from the database.
 		/// </summary>
 		/// <param name="courseId">Course database identifier.</param>
-		/// <returns>True if course is successfully added, otherwise false.</returns>
+		/// <returns>True if course is successfully deleted, otherwise false.</returns>
 		public static bool Delete(int courseId)
 		{
 			SqliteConnection conn = DatabaseConnection.GetConnection();
@@ -344,6 +344,11 @@ namespace GradeTracker.Data
 			conn.Close();
 
 			return tasks;
+		}
+
+		public bool AddGradeableTask(string name, DateTime dueDate, double potentialMarks, double weight)
+		{
+			return GradeableTask.Add(Id, name, dueDate, potentialMarks, weight);
 		}
 	}
 }

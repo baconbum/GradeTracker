@@ -108,8 +108,16 @@ namespace GradeTracker.Forms
 					new GradeableTaskForm(task).Show();
 					break;
 				case (int)GradeableTasksGridColumn.Delete:
-					MessageBox.Show(this, String.Format("Delete button pressed for {0}", task.Name), "Delete Task",
-						MessageBoxButtons.OK, MessageBoxIcon.Information);
+					switch (MessageBox.Show(this, String.Format("Are you sure you want to delete {0}", task.Name),
+						"Delete Task", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation))
+					{
+						case DialogResult.OK:
+							task.Delete();
+							break;
+						default:
+							break;
+					}
+					Refresh();
 					break;
 			}
 		}
