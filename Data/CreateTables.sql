@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS GradeableTasks(
 	ID				INTEGER	PRIMARY KEY	NOT NULL,
 	CourseID		INTEGER,
 	Name			TEXT,
+	DueDate			DATETIME,
 	PotentialMarks	REAL,
 	Weight			REAL,
 	FOREIGN KEY(CourseID)	REFERENCES Courses(ID)
