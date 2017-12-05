@@ -50,9 +50,9 @@
     <Compile Include="Data\StudentCourse.cs" />
     <Compile Include="Data\CourseStudent.cs" />
     <Compile Include="Forms\CourseStudentsForm.cs" />
-    <Compile Include="Forms\CourseTasksForm.cs" />
     <Compile Include="Data\GradeableTask.cs" />
     <Compile Include="Forms\GradeableTaskForm.cs" />
+    <Compile Include="Forms\CourseGradeableTasksForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />

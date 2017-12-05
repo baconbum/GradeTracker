@@ -5,7 +5,7 @@ using GradeTracker.Data;
 
 namespace GradeTracker.Forms
 {
-	public class CourseTasksForm : Form
+	public class CourseGradeableTasksForm : Form
 	{
 		Course course;
 
@@ -22,7 +22,7 @@ namespace GradeTracker.Forms
 			Delete = 5
 		};
 
-		public CourseTasksForm(Course course)
+		public CourseGradeableTasksForm(Course course)
 		{
 			this.course = course;
 

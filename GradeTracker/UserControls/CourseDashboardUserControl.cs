@@ -155,7 +155,7 @@ namespace GradeTracker.UserControls
 					courseStudentsForm.Show();
 					break;
 				case (int)CoursesGridColumn.Tasks:
-					new CourseTasksForm(course).Show();
+					new CourseGradeableTasksForm(course).Show();
 					break;
 				case (int)CoursesGridColumn.Grades:
 					MessageBox.Show(this, String.Format("View grades clicked for course \"{0}\"", course.Name));
