@@ -11,7 +11,7 @@ namespace GradeTracker.Forms
 		GradeableTask task =	null;
 
 		#region Form elements
-		FlowLayoutPanel flowLayoutPanel;
+		TableLayoutPanel tableLayoutPanel;
 
 		Label nameLabel;
 		TextBox nameTextBox;
@@ -30,9 +30,13 @@ namespace GradeTracker.Forms
 
 		private GradeableTaskForm()
 		{
-			InitalizeFlowLayoutPanel();
+			InitializeTableLayoutPanel();
 			InitializeFormFields();
 			InitializeButtons();
+
+			Size =				new Size(400, 200);
+			FormBorderStyle =	FormBorderStyle.FixedSingle;
+			MaximizeBox =		false;
 		}
 
 		public GradeableTaskForm(Course course) : this()
@@ -55,13 +59,14 @@ namespace GradeTracker.Forms
 		}
 
 		/// <summary>
-		/// Initalizes the flow layout panel.
+		/// Initializes the table layout panel.
 		/// </summary>
-		private void InitalizeFlowLayoutPanel()
+		private void InitializeTableLayoutPanel()
 		{
-			flowLayoutPanel = new FlowLayoutPanel() {
-				FlowDirection = FlowDirection.TopDown,
-				Dock =			DockStyle.Fill
+			tableLayoutPanel = new TableLayoutPanel() {
+				Dock =	DockStyle.Fill,
+				RowCount = 5,
+				ColumnCount = 2
 			};
 		}
 
@@ -70,72 +75,55 @@ namespace GradeTracker.Forms
 		/// </summary>
 		private void InitializeFormFields()
 		{
-			FlowLayoutPanel namePanel = new FlowLayoutPanel() {
-				AutoSize = true
-			};
-
 			nameLabel = new Label() {
 				Text = "Name",
 				Anchor = AnchorStyles.Left
 			};
 
-			nameTextBox = new TextBox() {};
-
-			namePanel.Controls.Add(nameLabel);
-			namePanel.Controls.Add(nameTextBox);
-
-			FlowLayoutPanel dueDatePanel = new FlowLayoutPanel() {
-				AutoSize = true
+			nameTextBox = new TextBox() {
+				Anchor = AnchorStyles.Left | AnchorStyles.Right
 			};
+
+			tableLayoutPanel.Controls.Add(nameLabel, 0, 0);
+			tableLayoutPanel.Controls.Add(nameTextBox, 1, 0);
 
 			dueDateLabel = new Label() {
 				Text = "Due Date",
 				Anchor = AnchorStyles.Left
 			};
 
-			dueDatePicker = new DateTimePicker() {};
-
-			dueDatePanel.Controls.Add(dueDateLabel);
-			dueDatePanel.Controls.Add(dueDatePicker);
-
-			FlowLayoutPanel endDatePanel = new FlowLayoutPanel() {
-				AutoSize = true
+			dueDatePicker = new DateTimePicker() {
+				Anchor = AnchorStyles.Left | AnchorStyles.Right
 			};
 
-			FlowLayoutPanel potentialMarksPanel = new FlowLayoutPanel() {
-				AutoSize = true
-			};
+			tableLayoutPanel.Controls.Add(dueDateLabel, 0, 1);
+			tableLayoutPanel.Controls.Add(dueDatePicker, 1, 1);
 
 			potentialMarksLabel = new Label() {
 				Text = "Potential Marks",
 				Anchor = AnchorStyles.Left
 			};
 
-			potentialMarksTextBox = new TextBox() {};
-
-			potentialMarksPanel.Controls.Add(potentialMarksLabel);
-			potentialMarksPanel.Controls.Add(potentialMarksTextBox);
-
-			FlowLayoutPanel weightPanel = new FlowLayoutPanel() {
-				AutoSize = true
+			potentialMarksTextBox = new TextBox() {
+				Anchor = AnchorStyles.Left | AnchorStyles.Right
 			};
+
+			tableLayoutPanel.Controls.Add(potentialMarksLabel, 0, 2);
+			tableLayoutPanel.Controls.Add(potentialMarksTextBox, 1, 2);
 
 			weightLabel = new Label() {
 				Text = "Weight",
 				Anchor = AnchorStyles.Left
 			};
 
-			weightTextBox = new TextBox() {};
+			weightTextBox = new TextBox() {
+				Anchor = AnchorStyles.Left | AnchorStyles.Right
+			};
 
-			weightPanel.Controls.Add(weightLabel);
-			weightPanel.Controls.Add(weightTextBox);
+			tableLayoutPanel.Controls.Add(weightLabel, 0, 3);
+			tableLayoutPanel.Controls.Add(weightTextBox, 1, 3);
 
-			flowLayoutPanel.Controls.Add(namePanel);
-			flowLayoutPanel.Controls.Add(dueDatePanel);
-			flowLayoutPanel.Controls.Add(potentialMarksPanel);
-			flowLayoutPanel.Controls.Add(weightPanel);
-
-			Controls.Add(flowLayoutPanel);
+			Controls.Add(tableLayoutPanel);
 		}
 
 		/// <summary>
@@ -143,10 +131,6 @@ namespace GradeTracker.Forms
 		/// </summary>
 		private void InitializeButtons()
 		{
-			FlowLayoutPanel buttonsPanel = new FlowLayoutPanel() {
-				AutoSize = true
-			};
-
 			submitButton = new Button() {
 				Text = "Submit",
 				Anchor = AnchorStyles.Bottom
@@ -154,9 +138,9 @@ namespace GradeTracker.Forms
 
 			submitButton.Click += SubmitButton_Click;
 
-			buttonsPanel.Controls.Add(submitButton);
+			tableLayoutPanel.Controls.Add(submitButton, 0, 4);
 
-			flowLayoutPanel.Controls.Add(buttonsPanel);
+			tableLayoutPanel.SetColumnSpan(submitButton, 2);
 		}
 
 		/// <summary>
