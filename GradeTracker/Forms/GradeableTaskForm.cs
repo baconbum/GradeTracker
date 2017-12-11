@@ -176,7 +176,56 @@ namespace GradeTracker.Forms
 		/// <returns><c>true</c>, if form was validated, <c>false</c> otherwise.</returns>
 		private bool ValidateForm()
 		{
-			//TODO: Implement validation
+			if (String.IsNullOrWhiteSpace(nameTextBox.Text))
+			{
+				MessageBox.Show(this, "Name cannot be empty.", "Invalid Task",
+					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				
+				nameTextBox.Focus();
+				return false;
+			}
+
+			double potentialMarks;
+
+			if (String.IsNullOrWhiteSpace(potentialMarksTextBox.Text) ||
+				!Double.TryParse(potentialMarksTextBox.Text, out potentialMarks))
+			{
+				MessageBox.Show(this, "Potential Marks is not a valid number.", "Invalid Task",
+					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+				potentialMarksTextBox.Focus();
+				return false;
+			}
+
+			if (potentialMarks < 0)
+			{
+				MessageBox.Show(this, "Potential Marks cannot be less than 0.", "Invalid Task",
+					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+				potentialMarksTextBox.Focus();
+				return false;
+			}
+
+			double weight;
+
+			if (String.IsNullOrWhiteSpace(weightTextBox.Text) ||
+				!Double.TryParse(weightTextBox.Text, out weight))
+			{
+				MessageBox.Show(this, "Weight is not a valid number.", "Invalid Task",
+					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+				weightTextBox.Focus();
+				return false;
+			}
+
+			if (weight < 0 || weight > 100)
+			{
+				MessageBox.Show(this, "Weight must be between 0 and 100.", "Invalid Task",
+					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+				weightTextBox.Focus();
+				return false;
+			}
 
 			return true;
 		}
