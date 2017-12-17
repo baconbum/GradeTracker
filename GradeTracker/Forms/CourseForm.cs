@@ -13,7 +13,7 @@ namespace GradeTracker.Forms
 		#region Class fields
 		Course course = null;
 
-		FlowLayoutPanel flowLayoutPanel;
+		TableLayoutPanel tableLayoutPanel;
 
 		Label nameLabel;
 		TextBox nameTextBox;
@@ -34,9 +34,13 @@ namespace GradeTracker.Forms
 		{
 			Text = "Add Course";
 
-			InitalizeFlowLayoutPanel();
+			InitalizeTableLayoutPanel();
 			InitializeFormFields();
 			InitializeButtons();
+
+			Size =				new Size(400, 175);
+			FormBorderStyle =	FormBorderStyle.FixedSingle;
+			MaximizeBox =		false;
 		}
 
 		/// <summary>
@@ -49,9 +53,13 @@ namespace GradeTracker.Forms
 
 			this.course = course;
 
-			InitalizeFlowLayoutPanel();
+			InitalizeTableLayoutPanel();
 			InitializeFormFields();
 			InitializeButtons();
+
+			Size =				new Size(400, 175);
+			FormBorderStyle =	FormBorderStyle.FixedSingle;
+			MaximizeBox =		false;
 
 			nameTextBox.Text =		course.Name;
 			startDatePicker.Value =	course.StartDate;
@@ -61,11 +69,12 @@ namespace GradeTracker.Forms
 		/// <summary>
 		/// Initalizes the flow layout panel.
 		/// </summary>
-		private void InitalizeFlowLayoutPanel()
+		private void InitalizeTableLayoutPanel()
 		{
-			flowLayoutPanel = new FlowLayoutPanel() {
-				FlowDirection = FlowDirection.TopDown,
-				Dock = DockStyle.Fill
+			tableLayoutPanel = new TableLayoutPanel() {
+				Dock =			DockStyle.Fill,
+				RowCount =		4,
+				ColumnCount =	2
 			};
 		}
 
@@ -74,53 +83,43 @@ namespace GradeTracker.Forms
 		/// </summary>
 		private void InitializeFormFields()
 		{
-			FlowLayoutPanel namePanel = new FlowLayoutPanel() {
-				AutoSize = true
-			};
-
 			nameLabel = new Label() {
 				Text = "Name",
 				Anchor = AnchorStyles.Left
 			};
 
-			nameTextBox = new TextBox() {};
-
-			namePanel.Controls.Add(nameLabel);
-			namePanel.Controls.Add(nameTextBox);
-
-			FlowLayoutPanel startDatePanel = new FlowLayoutPanel() {
-				AutoSize = true
+			nameTextBox = new TextBox() {
+				Anchor = AnchorStyles.Left | AnchorStyles.Right
 			};
+
+			tableLayoutPanel.Controls.Add(nameLabel, 0, 0);
+			tableLayoutPanel.Controls.Add(nameTextBox, 1, 0);
 
 			startDateLabel = new Label() {
 				Text = "Start Date",
 				Anchor = AnchorStyles.Left
 			};
 
-			startDatePicker = new DateTimePicker() {};
-
-			startDatePanel.Controls.Add(startDateLabel);
-			startDatePanel.Controls.Add(startDatePicker);
-
-			FlowLayoutPanel endDatePanel = new FlowLayoutPanel() {
-				AutoSize = true
+			startDatePicker = new DateTimePicker() {
+				Anchor = AnchorStyles.Left | AnchorStyles.Right
 			};
+
+			tableLayoutPanel.Controls.Add(startDateLabel, 0, 1);
+			tableLayoutPanel.Controls.Add(startDatePicker, 1, 1);
 
 			endDateLabel = new Label() {
 				Text = "End Date",
 				Anchor = AnchorStyles.Left
 			};
 
-			endDatePicker = new DateTimePicker() {};
+			endDatePicker = new DateTimePicker() {
+				Anchor = AnchorStyles.Left | AnchorStyles.Right
+			};
 
-			endDatePanel.Controls.Add(endDateLabel);
-			endDatePanel.Controls.Add(endDatePicker);
+			tableLayoutPanel.Controls.Add(endDateLabel, 0, 2);
+			tableLayoutPanel.Controls.Add(endDatePicker, 1, 2);
 
-			flowLayoutPanel.Controls.Add(namePanel);
-			flowLayoutPanel.Controls.Add(startDatePanel);
-			flowLayoutPanel.Controls.Add(endDatePanel);
-
-			Controls.Add(flowLayoutPanel);
+			Controls.Add(tableLayoutPanel);
 		}
 
 		/// <summary>
@@ -128,20 +127,16 @@ namespace GradeTracker.Forms
 		/// </summary>
 		private void InitializeButtons()
 		{
-			FlowLayoutPanel buttonsPanel = new FlowLayoutPanel() {
-				AutoSize = true
-			};
-
 			submitButton = new Button() {
-				Text = "Submit",
-				Anchor = AnchorStyles.Bottom
+				Text =		"Submit",
+				Anchor =	AnchorStyles.Bottom
 			};
 
 			submitButton.Click += SubmitButton_Click;
 
-			buttonsPanel.Controls.Add(submitButton);
+			tableLayoutPanel.Controls.Add(submitButton, 0, 3);
 
-			flowLayoutPanel.Controls.Add(buttonsPanel);
+			tableLayoutPanel.SetColumnSpan(submitButton, 2);
 		}
 
 		/// <summary>
