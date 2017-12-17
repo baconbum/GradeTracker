@@ -13,7 +13,7 @@ namespace GradeTracker.Forms
 		#region Class fields
 		Student student = null;
 
-		FlowLayoutPanel flowLayoutPanel;
+		TableLayoutPanel tableLayoutPanel;
 
 		Label firstNameLabel;
 		TextBox firstNameTextBox;
@@ -31,9 +31,13 @@ namespace GradeTracker.Forms
 		{
 			Text = "Add Student";
 
-			InitalizeFlowLayoutPanel();
+			InitalizeTableLayoutPanel();
 			InitializeFormFields();
 			InitializeButtons();
+
+			Size =				new Size(400, 125);
+			FormBorderStyle =	FormBorderStyle.FixedSingle;
+			MaximizeBox =		false;
 		}
 
 		/// <summary>
@@ -46,22 +50,27 @@ namespace GradeTracker.Forms
 
 			this.student = student;
 
-			InitalizeFlowLayoutPanel();
+			InitalizeTableLayoutPanel();
 			InitializeFormFields();
 			InitializeButtons();
+
+			Size =				new Size(400, 125);
+			FormBorderStyle =	FormBorderStyle.FixedSingle;
+			MaximizeBox =		false;
 
 			firstNameTextBox.Text = student.FirstName;
 			lastNameTextBox.Text = student.LastName;
 		}
 
 		/// <summary>
-		/// Initalizes the flow layout panel.
+		/// Initalizes the table layout panel.
 		/// </summary>
-		private void InitalizeFlowLayoutPanel()
+		private void InitalizeTableLayoutPanel()
 		{
-			flowLayoutPanel = new FlowLayoutPanel() {
-				FlowDirection = FlowDirection.TopDown,
-				Dock = DockStyle.Fill
+			tableLayoutPanel = new TableLayoutPanel() {
+				Dock =			DockStyle.Fill,
+				RowCount =		3,
+				ColumnCount =	2
 			};
 		}
 
@@ -70,38 +79,31 @@ namespace GradeTracker.Forms
 		/// </summary>
 		private void InitializeFormFields()
 		{
-			FlowLayoutPanel firstNamePanel = new FlowLayoutPanel() {
-				AutoSize = true
-			};
-
 			firstNameLabel = new Label() {
 				Text = "First Name",
 				Anchor = AnchorStyles.Left
 			};
 
-			firstNameTextBox = new TextBox() {};
-
-			firstNamePanel.Controls.Add(firstNameLabel);
-			firstNamePanel.Controls.Add(firstNameTextBox);
-
-			FlowLayoutPanel lastNamePanel = new FlowLayoutPanel() {
-				AutoSize = true
+			firstNameTextBox = new TextBox() {
+				Anchor = AnchorStyles.Left | AnchorStyles.Right
 			};
+
+			tableLayoutPanel.Controls.Add(firstNameLabel, 0, 0);
+			tableLayoutPanel.Controls.Add(firstNameTextBox, 1, 0);
 
 			lastNameLabel = new Label() {
 				Text = "Last Name",
 				Anchor = AnchorStyles.Left
 			};
 
-			lastNameTextBox = new TextBox() {};
+			lastNameTextBox = new TextBox() {
+				Anchor = AnchorStyles.Left | AnchorStyles.Right
+			};
 
-			lastNamePanel.Controls.Add(lastNameLabel);
-			lastNamePanel.Controls.Add(lastNameTextBox);
+			tableLayoutPanel.Controls.Add(lastNameLabel, 0, 1);
+			tableLayoutPanel.Controls.Add(lastNameTextBox, 1, 1);
 
-			flowLayoutPanel.Controls.Add(firstNamePanel);
-			flowLayoutPanel.Controls.Add(lastNamePanel);
-
-			Controls.Add(flowLayoutPanel);
+			Controls.Add(tableLayoutPanel);
 		}
 
 		/// <summary>
@@ -109,10 +111,6 @@ namespace GradeTracker.Forms
 		/// </summary>
 		private void InitializeButtons()
 		{
-			FlowLayoutPanel buttonsPanel = new FlowLayoutPanel() {
-				AutoSize = true
-			};
-
 			submitButton = new Button() {
 				Text = "Submit",
 				Anchor = AnchorStyles.Bottom
@@ -120,9 +118,9 @@ namespace GradeTracker.Forms
 
 			submitButton.Click += SubmitButton_Click;
 
-			buttonsPanel.Controls.Add(submitButton);
+			tableLayoutPanel.Controls.Add(submitButton, 0, 2);
 
-			flowLayoutPanel.Controls.Add(buttonsPanel);
+			tableLayoutPanel.SetColumnSpan(submitButton, 2);
 		}
 
 		/// <summary>
