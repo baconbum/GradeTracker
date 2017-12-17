@@ -54,6 +54,9 @@ namespace GradeTracker.Forms
 			endDatePicker.Value =	course.EndDate;
 		}
 
+		/// <summary>
+		/// Initializes the form.
+		/// </summary>
 		private void InitializeForm()
 		{
 			InitalizeTableLayoutPanel();
@@ -66,7 +69,7 @@ namespace GradeTracker.Forms
 		}
 
 		/// <summary>
-		/// Initalizes the flow layout panel.
+		/// Initalizes the table layout panel.
 		/// </summary>
 		private void InitalizeTableLayoutPanel()
 		{
