@@ -34,13 +34,7 @@ namespace GradeTracker.Forms
 		{
 			Text = "Add Course";
 
-			InitalizeTableLayoutPanel();
-			InitializeFormFields();
-			InitializeButtons();
-
-			Size =				new Size(400, 175);
-			FormBorderStyle =	FormBorderStyle.FixedSingle;
-			MaximizeBox =		false;
+			InitializeForm();
 		}
 
 		/// <summary>
@@ -53,6 +47,15 @@ namespace GradeTracker.Forms
 
 			this.course = course;
 
+			InitializeForm();
+
+			nameTextBox.Text =		course.Name;
+			startDatePicker.Value =	course.StartDate;
+			endDatePicker.Value =	course.EndDate;
+		}
+
+		private void InitializeForm()
+		{
 			InitalizeTableLayoutPanel();
 			InitializeFormFields();
 			InitializeButtons();
@@ -60,10 +63,6 @@ namespace GradeTracker.Forms
 			Size =				new Size(400, 175);
 			FormBorderStyle =	FormBorderStyle.FixedSingle;
 			MaximizeBox =		false;
-
-			nameTextBox.Text =		course.Name;
-			startDatePicker.Value =	course.StartDate;
-			endDatePicker.Value =	course.EndDate;
 		}
 
 		/// <summary>
