@@ -31,13 +31,7 @@ namespace GradeTracker.Forms
 		{
 			Text = "Add Student";
 
-			InitalizeTableLayoutPanel();
-			InitializeFormFields();
-			InitializeButtons();
-
-			Size =				new Size(400, 125);
-			FormBorderStyle =	FormBorderStyle.FixedSingle;
-			MaximizeBox =		false;
+			InitializeForm();
 		}
 
 		/// <summary>
@@ -50,6 +44,17 @@ namespace GradeTracker.Forms
 
 			this.student = student;
 
+			InitializeForm();
+
+			firstNameTextBox.Text = student.FirstName;
+			lastNameTextBox.Text = student.LastName;
+		}
+
+		/// <summary>
+		/// Initializes the form.
+		/// </summary>
+		private void InitializeForm()
+		{
 			InitalizeTableLayoutPanel();
 			InitializeFormFields();
 			InitializeButtons();
@@ -57,9 +62,6 @@ namespace GradeTracker.Forms
 			Size =				new Size(400, 125);
 			FormBorderStyle =	FormBorderStyle.FixedSingle;
 			MaximizeBox =		false;
-
-			firstNameTextBox.Text = student.FirstName;
-			lastNameTextBox.Text = student.LastName;
 		}
 
 		/// <summary>
